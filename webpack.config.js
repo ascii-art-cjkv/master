@@ -61,7 +61,10 @@ const commonConfig = merge([
     context: paths.app,
     resolve: {
       unsafeCache: true,
-      symlinks: false
+      symlinks: false,
+      alias: {
+        'xx': `${paths.app}/scripts/xx`
+      }
     },
     entry: `${paths.app}/scripts`,
     output: {
