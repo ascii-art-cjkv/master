@@ -24,6 +24,22 @@ class CharParser {
     this.ctx.textBaseline = 'top';
   }
 
+  on(eventName, callback) {
+    this.checkEventExistance(eventName)
+    this[eventName].push(callback)
+  }
+
+  trigger(eventName, param) {
+    this.checkEventExistance(eventName)
+    this[eventName].forEach((cb) => cb(param))
+  }
+
+  checkEventExistance(eventName) {
+    if (!this[eventName]) {
+      this[eventName] = []
+    }
+  }
+
   observe() {
     this.textDom.addEventListener('change', this.onTextChanged.bind(this))
   }
@@ -32,6 +48,7 @@ class CharParser {
     this.chars = []
     this.updateRawChars(e)
     this.updateChars()
+    this.trigger('charsUpdated', this.chars)
   }
 
   updateRawChars(e) {
