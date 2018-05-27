@@ -16,10 +16,10 @@ const lintJSOptions = {
   emitWarning: true,
   // Fail only on errors
   failOnWarning: false,
-  failOnError: true,
+  failOnError: false,
 
   // Toggle autofix
-  fix: true,
+  fix: false,
   cache: true,
 
   formatter: require('eslint-friendly-formatter')
@@ -80,7 +80,7 @@ const commonConfig = merge([
     }
   },
   parts.loadPug(),
-  parts.lintJS({ include: paths.app, options: lintJSOptions }),
+  // parts.lintJS({ include: paths.app, options: lintJSOptions }),
   parts.loadFonts({
     include: paths.app,
     options: {

@@ -32,7 +32,11 @@ module.exports = {
     'import/namespace': 2,
     'import/default': 2,
     'import/export': 2,
-    'no-console': 1,
+    'no-console': 0,
+    'no-debugger': 0,
+    'no-undef': 0,
+    'no-unused-vars': 0,
+    'space-before-function-paren': ['error', 'never'],
     'curly': 0
   }
 }
