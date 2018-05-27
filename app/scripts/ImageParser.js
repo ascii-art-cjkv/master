@@ -5,7 +5,8 @@ export default class ImageParser {
   constructor(gridSize) {
     this.canvasDom = document.createElement('canvas')
     this.ctx = this.canvasDom.getContext('2d')
-    this.gridSize = gridSize // it means char size = gridSize * gridSize
+    this.gridSize = gridSize
+    this.mappedGrayData = []
     this.draw(() => {
       this.grayData = this.getGrayData()
       this.grayMin = Math.min.apply(null, this.grayData)
@@ -22,8 +23,8 @@ export default class ImageParser {
     const imgDom = document.createElement('img')
     imgDom.setAttribute('src', imgUrl)
     imgDom.onload = () => {
-      this.width = imgDom.width / this.gridSize
-      this.height = imgDom.height / this.gridSize
+      this.width = Math.floor(imgDom.width / this.gridSize)
+      this.height = Math.floor(imgDom.height / this.gridSize)
       this.resize()
       this.ctx.drawImage(imgDom, 0, 0, this.width, this.height)
       cb()
@@ -44,6 +45,20 @@ export default class ImageParser {
       255 is white
     */
     return grayData
+  }
+
+  mapGrayWithChar(charCount) {
+    let pixel, newPixel;
+    const newGrayMax = charCount - 1
+    for (let i = 0; i < this.grayData.length; i++) {
+      pixel = this.grayData[i]
+      newPixel = newGrayMax - Math.round(this.map(pixel, this.grayMin, this.grayMax, 0, newGrayMax))
+      this.mappedGrayData[i] = newPixel
+    }
+  }
+
+  map(value, start1, stop1, start2, stop2) {
+    return start2 + (stop2 - start2) * ((value - start1) / (stop1 - start1));
   }
 }
 

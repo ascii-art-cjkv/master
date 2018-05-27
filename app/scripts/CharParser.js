@@ -9,8 +9,6 @@ export default class CharParser {
 
     this.init()
     this.observe()
-
-    this.textDom.dispatchEvent(new Event('change'))
   }
 
   init() {
