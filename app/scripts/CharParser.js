@@ -1,6 +1,6 @@
 import { sortBy } from 'underscore'
 
-class CharParser {
+export default class CharParser {
   constructor() {
     this.size = 600
     this.canvasDom = document.createElement('canvas')
@@ -77,5 +77,3 @@ class CharParser {
   }
 
 }
-
-export default CharParser
