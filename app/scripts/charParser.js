@@ -30,21 +30,21 @@ class CharParser {
 
   onTextChanged(e) {
     this.chars = []
-    this.updateChars(e)
-    this.analyseChars()
+    this.updateRawChars(e)
+    this.updateChars()
   }
 
-  updateChars(e) {
+  updateRawChars(e) {
     this.rawChars = e.target.value.split('')
     this.rawChars = Array.from(new Set(this.rawChars))
   }
 
-  analyseChars() {
-    this.rawChars.forEach(this.analyseChar.bind(this))
+  updateChars() {
+    this.rawChars.forEach(this.updateChar.bind(this))
     this.chars = sortBy(this.chars, 'pixelCount')
   }
 
-  analyseChar(char) {
+  updateChar(char) {
     this.ctx.fillText(char, 0, 0)
     this.chars.push({
       char,
@@ -60,6 +60,5 @@ class CharParser {
   }
 
 }
-
 
 export default CharParser
