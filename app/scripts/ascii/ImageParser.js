@@ -1,6 +1,6 @@
 import xx from 'xx'
 import PixelParser from './PixelParser'
-import imgUrl from './../images/sample.png'
+import imgUrl from '../../images/sample.png'
 
 export default class ImageParser extends PixelParser {
   constructor(resolution) {

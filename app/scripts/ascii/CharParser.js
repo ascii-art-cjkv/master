@@ -1,5 +1,5 @@
 import { sortBy } from 'underscore'
-import EventObject from './EventObject'
+import EventObject from '../EventObject'
 import xx from 'xx'
 
 export default class CharParser extends EventObject {

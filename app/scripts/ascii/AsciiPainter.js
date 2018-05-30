@@ -12,7 +12,7 @@ export default class AsciiPainter {
     this.sourceObj = new ImageParser(resolution)
     // this.sourceObj = new WebCam(resolution)
 
-    this.canvasDom = document.getElementById('canvas')
+    this.canvasDom = document.getElementById('ascii')
     this.ctx = this.canvasDom.getContext('2d')
     this.ctx.textBaseline = 'top'
 

@@ -1,4 +1,4 @@
-import EventObject from './EventObject'
+import EventObject from '../EventObject'
 
 export default class PixelParser extends EventObject {
 
