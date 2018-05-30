@@ -1,13 +1,13 @@
 import './../styles/main.scss'
+import './../index.pug'
 
-if (process.env.NODE_ENV !== 'production') {
-  require('./../index.pug')
-}
-
-import xx from 'xx'
 import AsciiPainter from './AsciiPainter'
 
-new AsciiPainter({
-  charSize: 20,
-  resolution: 3
+const resCtrl = document.getElementById('resolution')
+
+const painter = new AsciiPainter({ resolution: resCtrl.value })
+
+resCtrl.addEventListener('change', (e) => {
+  const value = e.target.value
+  painter.setResolution(value)
 })

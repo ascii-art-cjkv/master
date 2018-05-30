@@ -1,14 +1,18 @@
 import { sortBy } from 'underscore'
+import EventObject from './EventObject'
+import xx from 'xx'
 
-export default class CharParser {
+export default class CharParser extends EventObject {
   constructor() {
-    this.size = 600
+    super()
+    this.size = 500
     this.canvasDom = document.createElement('canvas')
     this.textDom = document.getElementById('text')
     this.ctx = this.canvasDom.getContext('2d')
 
     this.init()
     this.observe()
+    this.parse()
   }
 
   init() {
@@ -22,35 +26,19 @@ export default class CharParser {
     this.ctx.textBaseline = 'top';
   }
 
-  on(eventName, callback) {
-    this.checkEventExistance(eventName)
-    this[eventName].push(callback)
-  }
-
-  trigger(eventName, param) {
-    this.checkEventExistance(eventName)
-    this[eventName].forEach((cb) => cb(param))
-  }
-
-  checkEventExistance(eventName) {
-    if (!this[eventName]) {
-      this[eventName] = []
-    }
-  }
-
   observe() {
-    this.textDom.addEventListener('change', this.onTextChanged.bind(this))
+    this.textDom.addEventListener('change', this.parse.bind(this))
   }
 
-  onTextChanged(e) {
+  parse() {
     this.chars = []
-    this.updateRawChars(e)
+    this.updateRawChars()
     this.updateChars()
     this.trigger('charsUpdated', this.chars)
   }
 
-  updateRawChars(e) {
-    this.rawChars = e.target.value.split('')
+  updateRawChars() {
+    this.rawChars = this.textDom.value.replace(/[\n| ]/g, '').split('')
     this.rawChars = Array.from(new Set(this.rawChars))
   }
 

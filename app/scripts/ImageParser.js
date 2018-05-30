@@ -1,64 +1,32 @@
 import xx from 'xx'
+import PixelParser from './PixelParser'
 import imgUrl from './../images/sample.png'
 
-export default class ImageParser {
-  constructor(gridSize) {
-    this.canvasDom = document.createElement('canvas')
-    this.ctx = this.canvasDom.getContext('2d')
-    this.gridSize = gridSize
-    this.mappedGrayData = []
-    this.draw(() => {
-      this.grayData = this.getGrayData()
-      this.grayMin = Math.min.apply(null, this.grayData)
-      this.grayMax = Math.max.apply(null, this.grayData)
-    });
+export default class ImageParser extends PixelParser {
+  constructor(resolution) {
+    super(resolution)
+    this.load();
   }
 
-  resize() {
-    this.canvasDom.width = this.width
-    this.canvasDom.height = this.height
-  }
-
-  draw(cb) {
+  load() {
     const imgDom = document.createElement('img')
     imgDom.setAttribute('src', imgUrl)
     imgDom.onload = () => {
-      this.width = Math.floor(imgDom.width / this.gridSize)
-      this.height = Math.floor(imgDom.height / this.gridSize)
-      this.resize()
-      this.ctx.drawImage(imgDom, 0, 0, this.width, this.height)
-      cb()
+      this.setImageSize(this.imgDom.width, this.imgDom.height)
+      this.draw()
     }
+    this.imgDom = imgDom
   }
 
-  getGrayData() {
-    const { data } = this.ctx.getImageData(0, 0, this.width, this.height)
-    const grayData = []
-    for (let i = 0; i < data.length; i+=4) {
-      const [r, g, b] = [data[i], data[i + 1], data[i + 2]]
-      const gray = 0.3 * r + 0.59 * g + 0.11 * b
-      grayData.push(gray)
-    }
-    /*
-      grayData now is an array (width*height) contains number between 0~255
-      0 is black
-      255 is white
-    */
-    return grayData
+  draw() {
+    this.resize()
+    this.ctx.drawImage(this.imgDom, 0, 0, this.width, this.height)
+    this.updateGrayData()
   }
 
-  mapGrayWithChar(charCount) {
-    let pixel, newPixel;
-    const newGrayMax = charCount - 1
-    for (let i = 0; i < this.grayData.length; i++) {
-      pixel = this.grayData[i]
-      newPixel = newGrayMax - Math.round(this.map(pixel, this.grayMin, this.grayMax, 0, newGrayMax))
-      this.mappedGrayData[i] = newPixel
-    }
+  setResolution(resolution) {
+    this.resolution = resolution
+    this.draw()
   }
 
-  map(value, start1, stop1, start2, stop2) {
-    return start2 + (stop2 - start2) * ((value - start1) / (stop1 - start1));
-  }
 }
-
