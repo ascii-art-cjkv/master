@@ -6,9 +6,9 @@ import ImageParser from './ImageParser'
 import WebcamParser from './WebcamParser'
 
 export default class AsciiPainter extends Canvas {
-  constructor({ blur, text }) {
+  constructor({ resolution, text }) {
     super()
-    this.resolution = blur
+    this.resolution = resolution
 
     this.charParser = new CharParser(text)
     this.webcamParser = new WebcamParser(this.resolution)

@@ -5,14 +5,14 @@ import xx from 'xx'
 const presets = {
   bopomofo: () => {
     return {
-      blur: 4,
       text: '中文字的順序會影響閱讀！ㄅㄆㄇㄈㄉㄊㄋㄌㄍㄎㄏㄐ',
+      resolution: 30,
       webcam: false,
     }
   },
   sign: () => {
     return {
-      blur: 3.048264182895851,
+      resolution: 3.048264182895851,
       text: '↓↑←→★△◯☆♞☞❖✵☻♕⚑',
       webcam: false,
     }
@@ -23,7 +23,7 @@ const settings = presets.bopomofo()
 const painter = new AsciiPainter(settings)
 
 const handlers = {
-  changeResolution: () => painter.setResolution(settings.blur),
+  changeResolution: () => painter.setResolution(settings.resolution),
   changeText: () => painter.charParser.parse(settings.text),
   changeWebcam: () => painter.setSource(settings.webcam),
 }
@@ -43,6 +43,6 @@ const gui = new dat.GUI()
 
 // gui.remember(settings)
 
-gui.add(settings, 'blur', 2, 15).onChange(handlers.changeResolution)
+gui.add(settings, 'resolution', 2, 100).onChange(handlers.changeResolution).listen().step(1)
 gui.add(settings, 'text').onFinishChange(handlers.changeText)
 gui.add(settings, 'webcam').onFinishChange(handlers.changeWebcam)
