@@ -6,14 +6,13 @@ import ImageParser from './ImageParser'
 import WebcamParser from './WebcamParser'
 
 export default class AsciiPainter extends Canvas {
-  constructor({ resolution }) {
+  constructor({ blur, text }) {
     super()
-    this.resolution = resolution
+    this.resolution = blur
 
-    this.charParser = new CharParser()
+    this.charParser = new CharParser(text)
     this.webcamParser = new WebcamParser(this.resolution)
     this.imageParser = new ImageParser(this.resolution)
-    this.checkboxDom = document.getElementById('webcam')
 
     this.setSource()
     this.appendCanvasToBody()
@@ -33,12 +32,10 @@ export default class AsciiPainter extends Canvas {
     this.charParser.on('charsUpdated', this.redraw.bind(this))
     this.webcamParser.on('grayDataUpdated', this.redraw.bind(this))
     this.imageParser.on('grayDataUpdated', this.redraw.bind(this))
-    this.checkboxDom.addEventListener('change', this.setSource.bind(this))
     window.addEventListener('resize', this.onResize.bind(this))
   }
 
-  setSource() {
-    const toUseWebcam = this.checkboxDom.checked
+  setSource(toUseWebcam) {
     this.sourceObj = toUseWebcam && this.webcamParser || this.imageParser
     if (toUseWebcam) {
       this.webcamParser.getWebcam()

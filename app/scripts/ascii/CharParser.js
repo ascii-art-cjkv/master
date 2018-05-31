@@ -4,14 +4,12 @@ import Canvas from './Canvas'
 import xx from 'xx'
 
 class CharParser extends Canvas {
-  constructor() {
+  constructor(text) {
     super()
     this.size = 500
-    this.textDom = document.getElementById('text')
 
     this.init()
-    this.observe()
-    this.parse()
+    this.parse(text)
   }
 
   init() {
@@ -22,19 +20,15 @@ class CharParser extends Canvas {
     this.setFont(`${this.size}px/${this.size}px sans-serif`)
   }
 
-  observe() {
-    this.textDom.addEventListener('change', this.parse.bind(this))
-  }
-
-  parse() {
+  parse(text) {
     this.chars = []
-    this.updateRawChars()
+    this.updateRawChars(text)
     this.updateChars()
     this.trigger('charsUpdated', this.chars)
   }
 
-  updateRawChars() {
-    this.rawChars = this.textDom.value.replace(/[\n| ]/g, '').split('')
+  updateRawChars(text) {
+    this.rawChars = text.replace(/[\n| ]/g, '').split('')
     this.rawChars = Array.from(new Set(this.rawChars))
   }
 
