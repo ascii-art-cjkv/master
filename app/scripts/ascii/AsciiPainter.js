@@ -1,39 +1,50 @@
 import xx from 'xx'
+
+import Canvas from './Canvas'
 import CharParser from './CharParser'
 import ImageParser from './ImageParser'
-import WebCam from './WebCam'
+import WebcamParser from './WebcamParser'
 
-export default class AsciiPainter {
+export default class AsciiPainter extends Canvas {
   constructor({ resolution }) {
+    super()
     this.resolution = resolution
 
     this.charParser = new CharParser()
+    this.webcamParser = new WebcamParser(this.resolution)
+    this.imageParser = new ImageParser(this.resolution)
+    this.checkboxDom = document.getElementById('webcam')
 
-    this.sourceObj = new ImageParser(resolution)
-    // this.sourceObj = new WebCam(resolution)
-
-    this.canvasDom = document.getElementById('ascii')
-    this.ctx = this.canvasDom.getContext('2d')
-    this.ctx.textBaseline = 'top'
-
+    this.setSource()
+    this.appendCanvasToBody()
     this.fullscreen()
     this.setCharSize()
     this.observe()
   }
 
+  appendCanvasToBody() {
+    this.canvasDom.setAttribute('id', 'ascii')
+    this.canvasDom.classList.add('full-screen')
+
+    document.body.appendChild(this.canvasDom)
+  }
+
   observe() {
-    this.checkbox = document.getElementById('webcam')
-    this.checkbox.addEventListener('change', (e) => {
-      if (e.target.checked) {
-        this.sourceObj = new WebCam(this.resolution)
-      } else {
-        this.sourceObj = new ImageParser(this.resolution)
-      }
-      this.sourceObj.on('grayDataUpdated', this.redraw.bind(this))
-    })
     this.charParser.on('charsUpdated', this.redraw.bind(this))
-    this.sourceObj.on('grayDataUpdated', this.redraw.bind(this))
-    window.addEventListener('resize', this.resize.bind(this))
+    this.webcamParser.on('grayDataUpdated', this.redraw.bind(this))
+    this.imageParser.on('grayDataUpdated', this.redraw.bind(this))
+    this.checkboxDom.addEventListener('change', this.setSource.bind(this))
+    window.addEventListener('resize', this.onResize.bind(this))
+  }
+
+  setSource() {
+    const toUseWebcam = this.checkboxDom.checked
+    this.sourceObj = toUseWebcam && this.webcamParser || this.imageParser
+    if (toUseWebcam) {
+      this.webcamParser.getWebcam()
+    } else {
+      this.webcamParser.stopWebcam()
+    }
   }
 
   redraw() {
@@ -43,16 +54,14 @@ export default class AsciiPainter {
     this.draw()
   }
 
-  resize() {
+  onResize() {
     this.fullscreen()
     this.redraw()
   }
 
   fullscreen() {
     const toRetinaScale = window.devicePixelRatio > 1 ? 2 : 1
-
-    this.width = this.canvasDom.width = window.innerWidth * toRetinaScale
-    this.height = this.canvasDom.height = window.innerHeight * toRetinaScale
+    this.setSize(window.innerWidth * toRetinaScale, window.innerHeight * toRetinaScale)
   }
 
   setResolution(resolution) {
@@ -62,7 +71,7 @@ export default class AsciiPainter {
 
   setCharSize() {
     this.charSize = this.height/ this.sourceObj.height
-    this.ctx.font = `${this.charSize}px sans-serif`
+    this.setFont(`${this.charSize}px sans-serif`)
   }
 
   draw() {

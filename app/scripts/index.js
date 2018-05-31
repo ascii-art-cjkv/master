@@ -1,5 +1,5 @@
 import './../styles/main.scss'
 import './../index.pug'
 
-// import './ascii'
-import './dots'
+import './ascii'
+// import './dots'

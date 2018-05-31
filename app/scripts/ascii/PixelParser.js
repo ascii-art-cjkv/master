@@ -1,11 +1,9 @@
-import EventObject from '../EventObject'
+import Canvas from './Canvas'
 
-export default class PixelParser extends EventObject {
+class PixelParser extends Canvas {
 
   constructor(resolution) {
     super()
-    this.canvasDom = document.createElement('canvas')
-    this.ctx = this.canvasDom.getContext('2d')
     this.resolution = resolution
     // document.body.appendChild(this.canvasDom)
   }
@@ -16,8 +14,10 @@ export default class PixelParser extends EventObject {
   }
 
   resize() {
-    this.width = this.canvasDom.width = Math.floor(this.imageWidth / this.resolution)
-    this.height = this.canvasDom.height = Math.floor(this.imageHeight / this.resolution)
+    this.setSize(
+      Math.floor(this.imageWidth / this.resolution),
+      Math.floor(this.imageHeight / this.resolution)
+    )
   }
 
   updateGrayData() {
@@ -26,7 +26,7 @@ export default class PixelParser extends EventObject {
   }
 
   getGrayData() {
-    const { data } = this.ctx.getImageData(0, 0, this.width, this.height)
+    const data = this.getImageData()
     const grayData = []
     for (let i = 0; i < data.length; i += 4) {
       const [r, g, b] = [data[i], data[i + 1], data[i + 2]]
@@ -41,3 +41,5 @@ export default class PixelParser extends EventObject {
     return grayData
   }
 }
+
+export default PixelParser

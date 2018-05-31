@@ -2,7 +2,7 @@ import xx from 'xx'
 import PixelParser from './PixelParser'
 import imgUrl from '../../images/sample.png'
 
-export default class ImageParser extends PixelParser {
+class ImageParser extends PixelParser {
   constructor(resolution) {
     super(resolution)
     this.load()
@@ -30,3 +30,5 @@ export default class ImageParser extends PixelParser {
   }
 
 }
+
+export default ImageParser

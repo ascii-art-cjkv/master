@@ -1,7 +1,7 @@
 import xx from 'xx'
 import PixelParser from './PixelParser'
 
-export default class WebCam extends PixelParser {
+class WebcamParser extends PixelParser {
 
   constructor(resolution) {
     super(resolution)
@@ -12,17 +12,24 @@ export default class WebCam extends PixelParser {
     this.video = document.createElement('video')
     this.video.setAttribute('autoplay', true)
 
+    this.setReverse(true)
     this.observe()
-    this.getWebcam()
   }
 
   getWebcam() {
     navigator.getUserMedia({ video: true, audio: false }, (stream) => {
-      this.video.src = window.URL.createObjectURL(stream)
-      this.track = stream.getTracks()[0]
+      this.video.srcObject = stream
+      this.video.play()
     }, (e) => {
       console.error('Rejected!', e)
     })
+  }
+
+  stopWebcam() {
+    if (!this.video.srcObject) return
+    const tracks = this.video.srcObject.getTracks()
+    tracks.forEach((track) => track.stop())
+    this.video.srcObject = null
   }
 
   observe() {
@@ -46,3 +53,5 @@ export default class WebCam extends PixelParser {
   }
 
 }
+
+export default WebcamParser

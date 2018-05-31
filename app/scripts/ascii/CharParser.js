@@ -1,14 +1,13 @@
 import { sortBy } from 'underscore'
-import EventObject from '../EventObject'
+
+import Canvas from './Canvas'
 import xx from 'xx'
 
-export default class CharParser extends EventObject {
+class CharParser extends Canvas {
   constructor() {
     super()
     this.size = 500
-    this.canvasDom = document.createElement('canvas')
     this.textDom = document.getElementById('text')
-    this.ctx = this.canvasDom.getContext('2d')
 
     this.init()
     this.observe()
@@ -19,11 +18,8 @@ export default class CharParser extends EventObject {
     this.rawChars = []
     this.chars = []
 
-    this.canvasDom.width = this.size
-    this.canvasDom.height = this.size
-
-    this.ctx.font = `${this.size}px/${this.size}px sans-serif`
-    this.ctx.textBaseline = 'top';
+    this.setSize(this.size)
+    this.setFont(`${this.size}px/${this.size}px sans-serif`)
   }
 
   observe() {
@@ -53,13 +49,14 @@ export default class CharParser extends EventObject {
       char,
       pixelCount: this.getSumPixelCount()
     })
-    this.ctx.clearRect(0, 0, this.size, this.size);
+
+    this.clear()
   }
 
   getSumPixelCount() {
-    const { data } = this.ctx.getImageData(0, 0, this.size, this.size)
-    const sum = data.filter(data => data > 0).reduce((a, b) => a + b)
-    return sum
+    return this.getImageData().filter(data => data > 0).reduce((a, b) => a + b)
   }
 
 }
+
+export default CharParser
