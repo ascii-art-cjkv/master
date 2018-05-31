@@ -18,7 +18,19 @@ export default class AsciiPainter {
 
     this.fullscreen()
     this.setCharSize()
+    this.observe()
+  }
 
+  observe() {
+    this.checkbox = document.getElementById('webcam')
+    this.checkbox.addEventListener('change', (e) => {
+      if (e.target.checked) {
+        this.sourceObj = new WebCam(this.resolution)
+      } else {
+        this.sourceObj = new ImageParser(this.resolution)
+      }
+      this.sourceObj.on('grayDataUpdated', this.redraw.bind(this))
+    })
     this.charParser.on('charsUpdated', this.redraw.bind(this))
     this.sourceObj.on('grayDataUpdated', this.redraw.bind(this))
     window.addEventListener('resize', this.resize.bind(this))

@@ -5,16 +5,16 @@ import imgUrl from '../../images/sample.png'
 export default class ImageParser extends PixelParser {
   constructor(resolution) {
     super(resolution)
-    this.load();
+    this.load()
   }
 
-  load() {
+  load(url = imgUrl) {
     const imgDom = document.createElement('img')
-    imgDom.setAttribute('src', imgUrl)
     imgDom.onload = () => {
       this.setImageSize(this.imgDom.width, this.imgDom.height)
       this.draw()
     }
+    imgDom.src = url
     this.imgDom = imgDom
   }
 

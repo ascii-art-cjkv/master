@@ -1,7 +1,9 @@
 .controls
   textarea.control#text
-    | ㄅㄆㄇㄈㄉㄊㄋㄌㄍㄎㄏㄐㄑㄒㄓㄔㄕㄖㄗㄘㄙ一ㄨㄩㄚㄛㄜㄝㄞㄟㄠㄡㄢㄣㄤㄥㄦ
+    | ㄅㄆㄇㄈㄉㄊㄋㄌㄍㄎㄏㄐ
     | 飛快的棕色狐狸跳過了懶狗
-  input.control#resolution(type='number' value='5' min='2')
-  input.control#url(type='text')
+  input.control#resolution(type='number' value='30' min='2')
+  .control
+    label use webcam
+    input#webcam(type='checkbox')
 canvas#ascii.full-screen
