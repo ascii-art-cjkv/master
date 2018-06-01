@@ -6,7 +6,7 @@ import xx from 'xx'
 class CharParser extends Canvas {
   constructor(text) {
     super()
-    this.size = 500
+    this.size = 5
 
     this.init()
     this.parse(text)
@@ -22,17 +22,14 @@ class CharParser extends Canvas {
 
   parse(text) {
     this.chars = []
-    this.updateRawChars(text)
-    this.updateChars()
+
+    this.updateChars(text)
     this.trigger('charsUpdated', this.chars)
   }
 
-  updateRawChars(text) {
+  updateChars(text) {
     this.rawChars = text.replace(/[\n| ]/g, '').split('')
     this.rawChars = Array.from(new Set(this.rawChars))
-  }
-
-  updateChars() {
     this.rawChars.forEach(this.updateChar.bind(this))
     this.chars = sortBy(this.chars, 'pixelCount')
   }
