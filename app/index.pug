@@ -4,6 +4,25 @@ html(lang='en')
     meta(charset='UTF-8')
     meta(name='viewport' content='width=device-width, initial-scale=1.0')
     meta(http-equiv='X-UA-Compatible' content='ie=edge')
+    link(href='https://fonts.googleapis.com/css?family=Asap:400i' rel='stylesheet')
     title Document
   body
-    //- canvas#canvas.full-screen
+    .bar
+      .bar_item.bar_title Traditional Chinese ASCII
+      .bar_item.bar_item--control
+        label(for='text') text
+        input.bar_input.bar_input--text#text(type='text' value='')
+        input#color.bar_input--color(type='color')
+      .bar_item.bar_item--control
+        label.bar_background
+          span background
+          input#bgColor.bar_input--color(type='color')
+      .bar_item.bar_item--control
+        label(for='resolution') resolution
+        input.bar_input#resolution(type='number' min='3' max='100' step='1' value='30')
+      .bar_item.bar_item--control
+        label.bar_checkbox
+          span webcam
+          input#webcam(type='checkbox')
+      .bar_item.bar_item--control
+        span download

@@ -1,57 +1,44 @@
 import AsciiPainter from './AsciiPainter'
-import * as dat from 'dat.gui'
 import initFileHandler from './file-handler'
 
 import xx from 'xx'
 
-const presets = {
-  bopomofo: () => {
-    return {
-      resolution: 30,
-      text: '中文字的順序會影響閱讀。ㄅㄆㄇㄈㄉㄊㄋㄌㄍㄎㄏㄐ',
-      webcam: false,
-    }
-  },
-  sign: () => {
-    return {
-      resolution: 3.048264182895851,
-      text: '↓↑←→★△◯☆♞☞❖✵☻♕⚑',
-      webcam: false,
-    }
-  }
+const settings = {
+  text: '中文字的順序會影響閱讀。ㄅㄆㄇㄈㄉㄊㄋㄌㄍㄎㄏㄐ',
+  resolution: 30,
+  color: '#000000',
+  bgColor: '#ffffff'
 }
 
-const settings = presets.bopomofo()
 const painter = new AsciiPainter(settings)
 
-const handlers = {
-  changeResolution: () => painter.setResolution(settings.resolution),
-  changeText: () => painter.charParser.parse(settings.text),
-  changeWebcam: () => painter.setSource(settings.webcam),
-}
-
-const gui = new dat.GUI()
 initFileHandler(painter)
+class Control {
+  constructor(settings) {
+    Object.keys(settings).forEach(domId => {
+      this.addElement(domId)
 
-// const gui = new dat.GUI({
-//   load: {
-//     remembered: {
-//       '中文': [presets.bopomofo()],
-//     　'★': [presets.sign()],
-//     },
-//     closed: false,
-//     folders: {}
-//   },
-// })
+      const value = settings[domId]
+      const attr = typeof value === 'boolean' ? 'checked' : 'value'
 
-// gui.remember(settings)
+      this[domId][attr] = value
+    })
+  }
 
-gui.add(settings, 'resolution', 2, 100).onChange(handlers.changeResolution).listen().step(1)
-gui.add(settings, 'text').onFinishChange(handlers.changeText)
-gui.add(settings, 'webcam').onFinishChange(handlers.changeWebcam)
+  addElement(domName) {
+    return this[domName] = document.getElementById(domName)
+  }
 
-
+  on(domName, eventName, handler) {
+    let ele = this[domName] || this.addElement(domName)
+    ele.addEventListener(eventName, handler)
   }
 }
 
+const controls = new Control(settings)
 
+controls.on('text', 'change', (e) => painter.charParser.parse(e.target.value))
+controls.on('resolution', 'change', (e) => painter.setResolution(e.target.value))
+controls.on('webcam', 'change', (e) => painter.setSource(e.target.checked))
+controls.on('color', 'change', (e) => painter.setColor(e.target.value))
+controls.on('bgColor', 'change', (e) => painter.setBgColor(e.target.value))

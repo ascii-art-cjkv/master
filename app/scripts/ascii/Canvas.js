@@ -30,7 +30,7 @@ class Canvas {
     this.ctx.clearRect(0, 0, this.width, this.height);
   }
 
-  getImageData(isReverse) {
+  getImageData() {
     const data = this.ctx.getImageData(0, 0, this.width, this.height).data
     return data
   }
