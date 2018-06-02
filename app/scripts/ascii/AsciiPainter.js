@@ -62,6 +62,10 @@ export default class AsciiPainter extends Canvas {
     this.redraw()
   }
 
+  toDataURL() {
+    return this.canvasDom.toDataURL('image/png')
+  }
+
   // private
 
   appendCanvasToBody() {

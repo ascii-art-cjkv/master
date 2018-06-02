@@ -42,8 +42,10 @@ controls.on('text', 'change', (e) => painter.charParser.parse(e.target.value))
         .on('webcam', 'change', (e) => painter.setSourceToWebcam(e.target.checked))
         .on('color', 'change', (e) => painter.setColor(e.target.value))
         .on('bgColor', 'change', (e) => painter.setBgColor(e.target.value))
+        .on('download', 'click', (e) => e.target.href = painter.toDataURL())
+        .on('resolution', 'change', onResolutionChange)
 
-controls.on('resolution', 'change', (e) => {
+function onResolutionChange(e) {
   const min = +e.target.getAttribute('min')
   const max = +e.target.getAttribute('max')
   let value = +e.target.value
@@ -56,4 +58,4 @@ controls.on('resolution', 'change', (e) => {
 
   e.target.value = value
   painter.setResolution(value)
-})
+}
