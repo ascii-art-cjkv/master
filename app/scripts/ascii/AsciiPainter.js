@@ -5,7 +5,7 @@ import CharParser from './CharParser'
 import ImageParser from './ImageParser'
 import WebcamParser from './WebcamParser'
 
-export default class AsciiPainter extends Canvas {
+class AsciiPainter extends Canvas {
   constructor(options) {
     super()
 
@@ -173,3 +173,5 @@ export default class AsciiPainter extends Canvas {
   }
 
 }
+
+export default AsciiPainter
