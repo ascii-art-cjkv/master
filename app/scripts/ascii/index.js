@@ -43,19 +43,4 @@ controls.on('text', 'change', (e) => painter.charParser.parse(e.target.value))
         .on('color', 'change', (e) => painter.setColor(e.target.value))
         .on('bgColor', 'change', (e) => painter.setBgColor(e.target.value))
         .on('download', 'click', (e) => e.target.href = painter.toDataURL())
-        .on('resolution', 'change', onResolutionChange)
-
-function onResolutionChange(e) {
-  const min = +e.target.getAttribute('min')
-  const max = +e.target.getAttribute('max')
-  let value = +e.target.value
-
-  if (value < min) {
-    value = min
-  } else if (value > max) {
-    value = max
-  }
-
-  e.target.value = value
-  painter.setResolution(value)
-}
+        .on('resolution', 'change', (e) => painter.setResolution(e.target.value))

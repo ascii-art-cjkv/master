@@ -19,7 +19,7 @@ html(lang='en')
           input#bgColor.bar_input--color(type='color')
       .bar_item.bar_item--control
         label(for='resolution') resolution
-        input.bar_input#resolution(type='number' min='3' max='100' step='1' value='30')
+        input.bar_input.bar_input--range#resolution(type='range' min='3' max='100' step='1' value='30')
       .bar_item.bar_item--control
         label.bar_checkbox
           span webcam
