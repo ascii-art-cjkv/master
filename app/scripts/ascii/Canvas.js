@@ -31,8 +31,7 @@ class Canvas {
   }
 
   getImageData() {
-    const data = this.ctx.getImageData(0, 0, this.width, this.height).data
-    return data
+    return this.ctx.getImageData(0, 0, this.width, this.height).data
   }
 }
 

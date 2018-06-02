@@ -20,6 +20,7 @@ class WebcamParser extends PixelParser {
     navigator.getUserMedia({ video: true, audio: false }, (stream) => {
       this.video.srcObject = stream
       this.video.play()
+      this.isPlaying = true
     }, (e) => {
       console.error('Rejected!', e)
     })
@@ -30,24 +31,31 @@ class WebcamParser extends PixelParser {
     const tracks = this.video.srcObject.getTracks()
     tracks.forEach((track) => track.stop())
     this.video.srcObject = null
+    this.isPlaying = false
   }
 
   observe() {
     this.video.addEventListener('loadedmetadata', () => {
       this.setImageSize(this.video.videoWidth, this.video.videoHeight)
       this.resize()
-      requestAnimationFrame(this.draw.bind(this))
+      requestAnimationFrame(this.play.bind(this))
     })
+  }
+
+  play() {
+    if (!this.isPlaying) return
+    this.draw()
+    requestAnimationFrame(this.play.bind(this))
   }
 
   draw() {
     this.ctx.drawImage(this.video, 0, 0, this.width, this.height)
     this.updateGrayData()
-    requestAnimationFrame(this.draw.bind(this))
   }
 
   setResolution(resolution) {
     this.resolution = resolution
+    if (!this.isPlaying) return
     this.resize()
     this.draw()
   }

@@ -32,13 +32,28 @@ class Control {
   on(domName, eventName, handler) {
     let ele = this[domName] || this.addElement(domName)
     ele.addEventListener(eventName, handler)
+    return this
   }
 }
 
 const controls = new Control(settings)
 
 controls.on('text', 'change', (e) => painter.charParser.parse(e.target.value))
-controls.on('resolution', 'change', (e) => painter.setResolution(e.target.value))
-controls.on('webcam', 'change', (e) => painter.setSource(e.target.checked))
-controls.on('color', 'change', (e) => painter.setColor(e.target.value))
-controls.on('bgColor', 'change', (e) => painter.setBgColor(e.target.value))
+        .on('webcam', 'change', (e) => painter.setSourceToWebcam(e.target.checked))
+        .on('color', 'change', (e) => painter.setColor(e.target.value))
+        .on('bgColor', 'change', (e) => painter.setBgColor(e.target.value))
+
+controls.on('resolution', 'change', (e) => {
+  const min = +e.target.getAttribute('min')
+  const max = +e.target.getAttribute('max')
+  let value = +e.target.value
+
+  if (value < min) {
+    value = min
+  } else if (value > max) {
+    value = max
+  }
+
+  e.target.value = value
+  painter.setResolution(value)
+})

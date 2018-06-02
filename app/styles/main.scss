@@ -38,9 +38,11 @@ $bar-height: 70px;
 
   &_item {
     @extend %flex;
+
     & + & {
       margin-left: 10px;
     }
+
     &--control {
       background: #fff;
       color: #000;
@@ -62,11 +64,11 @@ $bar-height: 70px;
     font-size: inherit;
     outline: 0;
     border: 0;
+
     &--text {
       width: 400px;
       display: block;
     }
-
   }
 }
 

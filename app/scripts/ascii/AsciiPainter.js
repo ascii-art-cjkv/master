@@ -23,32 +23,37 @@ export default class AsciiPainter extends Canvas {
     this.webcamParser = new WebcamParser(this.resolution)
     this.imageParser = new ImageParser(this.resolution)
 
-    this.setSource()
     this.appendCanvasToBody()
     this.fullscreen()
-    this.setCharSize()
+    this.setSourceToWebcam(this.webcam)
+    this.updateCharSize()
     this.observe()
   }
 
 
   // public
 
-  setSource(toUseWebcam) {
+  setSourceToWebcam(toUseWebcam) {
     this.sourceObj = toUseWebcam && this.webcamParser || this.imageParser
     if (toUseWebcam) {
       this.webcamParser.getWebcam()
     } else {
       this.webcamParser.stopWebcam()
+      this.redraw()
     }
   }
 
   setResolution(resolution) {
     this.resolution = resolution
-    this.sourceObj.setResolution(resolution)
+    this.imageParser.setResolution(resolution)
+    this.webcamParser.setResolution(resolution)
+    this.updateCharSize()
+    this.redraw()
   }
 
   setColor(color) {
     this.color = color
+    this.ctx.fillStyle = this.color
     this.redraw()
   }
 
@@ -72,27 +77,25 @@ export default class AsciiPainter extends Canvas {
   }
 
   redraw() {
-    if (!this.charParser.chars) return
+    if (!this.sourceObj.grayData || !this.charParser.chars) return
     this.grayData = this.mapGrayWithChar(this.sourceObj.grayData, this.charParser.chars)
-    this.setCharSize()
     this.draw()
   }
 
   onResize() {
     this.fullscreen()
+    this.updateCharSize()
     this.redraw()
+  }
+
+  updateCharSize() {
+    this.charSize = this.height / this.resolution
+    this.setFont(`${this.charSize}px sans-serif`)
   }
 
   fullscreen() {
     const toRetinaScale = window.devicePixelRatio > 1 ? 2 : 1
     this.setSize(window.innerWidth * toRetinaScale, window.innerHeight * toRetinaScale)
-  }
-
-  setCharSize() {
-    // todo: is this need to set so many times?
-    this.charSize = this.height/ this.sourceObj.height
-    this.setFont(`${this.charSize}px sans-serif`)
-    this.ctx.fillStyle = this.color
   }
 
   clear() {
@@ -105,18 +108,19 @@ export default class AsciiPainter extends Canvas {
   draw() {
     this.clear()
 
-    let pixelIndex, pixelGray, char
+    let pixelIndex, pixelGray, charObj
     const offsetX = (this.width - (this.charSize * this.sourceObj.width)) / 2
 
     for (let y = 0; y < this.sourceObj.height; y++) {
       for (let x = 0; x < this.sourceObj.width; x++) {
         pixelIndex = y * this.sourceObj.width + x
         pixelGray = this.grayData[pixelIndex]
-        if (!this.charParser.chars[pixelGray]) {
-          debugger
+        charObj = this.charParser.chars[pixelGray]
+        if (!charObj) {
+          // grayData is not ready
+          return
         }
-        char = this.charParser.chars[pixelGray].char
-        this.ctx.fillText(char, x * this.charSize + offsetX, y * this.charSize)
+        this.ctx.fillText(charObj.char, x * this.charSize + offsetX, y * this.charSize)
       }
     }
   }
