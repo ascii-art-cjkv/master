@@ -77,17 +77,41 @@ export default class AsciiPainter extends Canvas {
     this.charParser.on('charsUpdated', this.redraw.bind(this))
     this.webcamParser.on('grayDataUpdated', this.redraw.bind(this))
     this.imageParser.on('grayDataUpdated', this.redraw.bind(this))
-    window.addEventListener('resize', this.onResize.bind(this))
+
+    this.imageParser.on('imageSizeChanged', this.resize.bind(this))
+    this.webcamParser.on('imageSizeChanged', this.resize.bind(this))
+    window.addEventListener('resize', this.resize.bind(this))
   }
 
   redraw() {
     if (!this.sourceObj.grayData || !this.charParser.chars) return
-    this.grayData = this.mapGrayWithChar(this.sourceObj.grayData, this.charParser.chars)
+    this.grayData = this.getMappedGrayData()
     this.draw()
   }
 
-  onResize() {
-    this.fullscreen()
+  resize() {
+    const { imageHeight, imageWidth } = this.sourceObj
+
+    const toRetinaScale = window.devicePixelRatio > 1 ? 2 : 1
+
+    const padding = 60
+    const barHeight = 70
+    const maxWidth = (window.innerWidth - padding * 2) * toRetinaScale
+    const maxHeight = (window.innerHeight - padding * 2 - barHeight) * toRetinaScale
+    const ratio = imageWidth / imageHeight
+    const windowRatio = maxWidth / maxHeight
+
+    let width, height
+
+    if (windowRatio < ratio) { // window is thiner
+      width = maxWidth
+      height = width  / ratio
+    } else {
+      height = maxHeight
+      width = ratio * height
+    }
+
+    this.setSize(width, height)
     this.updateCharSize()
     this.redraw()
   }
@@ -119,22 +143,25 @@ export default class AsciiPainter extends Canvas {
       for (let x = 0; x < this.sourceObj.width; x++) {
         pixelIndex = y * this.sourceObj.width + x
         pixelGray = this.grayData[pixelIndex]
-        charObj = this.charParser.chars[pixelGray]
-        if (!charObj) {
-          // grayData is not ready
-          return
-        }
+        charObj = this.charParser.chars[pixelGray - (this.isTransparent ? 1 : 0)]
+
+        if (!charObj) continue
+
         this.ctx.fillText(charObj.char, x * this.charSize + offsetX, y * this.charSize)
       }
     }
   }
 
-  mapGrayWithChar(grayData, chars) {
+  getMappedGrayData() {
     let newGray;
+
+    const grayData = this.sourceObj.grayData
+    const chars = this.charParser.chars
+
     const grayMin = Math.min.apply(null, grayData)
     const grayMax = Math.max.apply(null, grayData)
     const newGrayMin = 0
-    const newGrayMax = chars.length - 1
+    const newGrayMax = chars.length - (this.isTransparent ? 0 : 1)
     const newGrayData = []
 
     return grayData.map((gray) => {

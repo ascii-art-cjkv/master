@@ -1,4 +1,5 @@
 import dragDrop from 'drag-drop'
+import xx from 'xx'
 
 // thanks! https://stackoverflow.com/questions/12710001/how-to-convert-uint8-array-to-base64-encoded-string#comment-75241120
 function Uint8ToBase64(u8Arr) {
@@ -16,7 +17,7 @@ function Uint8ToBase64(u8Arr) {
 }
 
 function initFileHandler(painter) {
-  dragDrop('#ascii', {
+  dragDrop('#fileDropArea', {
     onDrop: (files, pos, fileList, directories) => {
       const file = files[0]
       const reader = new FileReader()

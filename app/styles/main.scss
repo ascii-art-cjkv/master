@@ -3,10 +3,9 @@ $bar-height: 70px;
 #ascii {
   display: block;
   position: absolute;
-  left: 0;
-  top: 0;
-  width: 100vw;
-  height: calc(100vh - #{$bar-height});
+  left: 50%;
+  top: calc(50% - #{($bar-height / 2)});
+  transform: translate(-50%, -50%);
 
   .drag-file & {
     opacity: 0.2;
@@ -18,10 +17,20 @@ $bar-height: 70px;
   align-items: center;
 }
 
+#fileDropArea {
+  position: absolute;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+}
+
 .bar {
   @extend %flex;
 
   position: fixed;
+  z-index: 2;
   bottom: 0;
   left: 0;
   right: 0;

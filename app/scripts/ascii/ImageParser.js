@@ -19,7 +19,7 @@ class ImageParser extends PixelParser {
   }
 
   draw() {
-    this.resize()
+    this.rescale()
     this.ctx.drawImage(this.imgDom, 0, 0, this.width, this.height)
     this.updateGrayData()
   }

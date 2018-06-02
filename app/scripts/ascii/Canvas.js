@@ -13,8 +13,14 @@ class Canvas {
   }
 
   setSize(width, height = width) {
+    const toRetinaScale = window.devicePixelRatio > 1 ? 2 : 1
+
     this.width = this.canvasDom.width = width
     this.height = this.canvasDom.height = height
+
+    this.canvasDom.style.width = width / toRetinaScale + 'px'
+    this.canvasDom.style.height = height / toRetinaScale + 'px'
+
     if (this.isReverse) {
       this.ctx.translate(this.width, 0)
       this.ctx.scale(-1, 1)

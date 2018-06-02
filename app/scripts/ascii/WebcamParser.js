@@ -37,7 +37,7 @@ class WebcamParser extends PixelParser {
   observe() {
     this.video.addEventListener('loadedmetadata', () => {
       this.setImageSize(this.video.videoWidth, this.video.videoHeight)
-      this.resize()
+      this.rescale()
       requestAnimationFrame(this.play.bind(this))
     })
   }
@@ -56,7 +56,7 @@ class WebcamParser extends PixelParser {
   setResolution(resolution) {
     this.resolution = resolution
     if (!this.isPlaying) return
-    this.resize()
+    this.rescale()
     this.draw()
   }
 

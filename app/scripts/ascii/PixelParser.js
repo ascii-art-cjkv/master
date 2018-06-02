@@ -11,9 +11,10 @@ class PixelParser extends Canvas {
   setImageSize(width, height) {
     this.imageWidth = width
     this.imageHeight = height
+    this.trigger('imageSizeChanged')
   }
 
-  resize() {
+  rescale() {
     this.setSize(
       Math.floor(this.resolution * this.imageWidth / this.imageHeight),
       this.resolution
