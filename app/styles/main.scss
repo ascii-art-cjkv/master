@@ -1,5 +1,23 @@
 $bar-height: 70px;
 
+body {
+  font-family: 'Asap', sans-serif;
+
+  &.drag-file {
+    &::after {
+      content: 'Drop!';
+      display: block;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+      font-size: 100px;
+      font-style: italic;
+    }
+  }
+}
+
 #ascii {
   display: block;
   position: absolute;
@@ -15,6 +33,7 @@ $bar-height: 70px;
 %flex {
   display: flex;
   align-items: center;
+  justify-content: center;
 }
 
 #fileDropArea {
@@ -35,14 +54,12 @@ $bar-height: 70px;
   left: 0;
   right: 0;
   height: $bar-height;
-  background: rgb(72, 82, 88);
-  color: #fff;
+  font-size: 16px;
   padding: 0 20px;
-  font-size: 20px;
 
-  &_title {
-    font-size: 20px;
-    margin-right: 50px;
+  a {
+    text-decoration: none;
+    color: inherit;
   }
 
   &_item {
@@ -53,15 +70,13 @@ $bar-height: 70px;
     }
 
     &--control {
-      background: #fff;
-      color: #000;
+      background: #f6f6f6;
       padding: 0 10px;
       height: calc(100% - 30px);
       border-radius: 2px;
 
       label {
-        color: #aaa;
-        font-size: 0.8em;
+        color: #888;
         margin-right: 10px;
       }
     }
@@ -73,28 +88,20 @@ $bar-height: 70px;
     font-size: inherit;
     outline: 0;
     border: 0;
+    font-size: 1.2em;
+    background: none;
 
     &--text {
       width: 400px;
       display: block;
     }
-  }
-}
 
-body {
-  font-family: 'Asap', sans-serif;
+    &--number {
+      appearance: none;
+    }
 
-  &.drag-file {
-    &::after {
-      content: 'Drop!';
-      display: block;
-      position: absolute;
-      left: 50%;
-      top: 50%;
-      transform: translate(-50%, -50%);
-      pointer-events: none;
-      font-size: 100px;
-      font-style: italic;
+    &--color {
+      margin-left: 10px;
     }
   }
 }

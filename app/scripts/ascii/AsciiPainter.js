@@ -94,10 +94,9 @@ export default class AsciiPainter extends Canvas {
 
     const toRetinaScale = window.devicePixelRatio > 1 ? 2 : 1
 
-    const padding = 60
-    const barHeight = 70
+    const padding = 70
     const maxWidth = (window.innerWidth - padding * 2) * toRetinaScale
-    const maxHeight = (window.innerHeight - padding * 2 - barHeight) * toRetinaScale
+    const maxHeight = (window.innerHeight - padding * 2) * toRetinaScale
     const ratio = imageWidth / imageHeight
     const windowRatio = maxWidth / maxHeight
 
