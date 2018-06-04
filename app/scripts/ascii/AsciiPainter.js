@@ -39,7 +39,7 @@ class AsciiPainter extends Canvas {
       this.webcamParser.getWebcam()
     } else {
       this.webcamParser.stopWebcam()
-      this.redraw()
+      this.resize()
     }
   }
 
@@ -111,6 +111,7 @@ class AsciiPainter extends Canvas {
     }
 
     this.setSize(width, height)
+    this.setColor(this.color)
     this.updateCharSize()
     this.redraw()
   }

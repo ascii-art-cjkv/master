@@ -40,7 +40,8 @@ const controls = new Control(settings)
 
 controls.on('text', 'change', (e) => painter.charParser.parse(e.target.value))
         .on('webcam', 'change', (e) => painter.setSourceToWebcam(e.target.checked))
-        .on('color', 'change', (e) => painter.setColor(e.target.value))
-        .on('bgColor', 'change', (e) => painter.setBgColor(e.target.value))
         .on('download', 'click', (e) => e.target.href = painter.toDataURL())
         .on('resolution', 'change', (e) => painter.setResolution(e.target.value))
+
+window.updateColor = (jsColor) => painter.setColor(`#${jsColor}`)
+window.updateBgColor = (jsColor) => painter.setBgColor(`#${jsColor}`)
