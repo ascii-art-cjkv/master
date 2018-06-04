@@ -219,7 +219,7 @@ module.exports = env => {
 
 function getPaths ({
   sourceDir = 'app',
-  buildDir = 'build',
+  buildDir = 'docs',
   staticDir = '',
   images = 'images',
   fonts = 'fonts',
