@@ -1,4 +1,37 @@
-$bar-height: 90px;
+$control-bar-height: 110px;
+
+$tablet-width: 850px;
+$desktop-width: 1024px;
+
+@mixin min-width($width) {
+  @media (min-width: #{$width}) {
+    @content;
+  }
+}
+
+@mixin mobile {
+  @media (max-width: #{$tablet-width - 1}) {
+    @content;
+  }
+}
+
+@mixin tablet {
+  @include min-width($tablet-width) {
+    @content;
+  }
+}
+
+@mixin desktop {
+  @include min-width($desktop-width) {
+    @content;
+  }
+}
+
+@mixin flex {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
 body {
   font-family: 'Asap', sans-serif;
@@ -22,18 +55,13 @@ body {
   display: block;
   position: absolute;
   left: 50%;
-  top: calc(50% - #{($bar-height / 2)});
+  top: calc(50% - #{($control-bar-height / 2)});
   transform: translate(-50%, -50%);
+  background: #aaa;
 
   .drag-file & {
     opacity: 0.2;
   }
-}
-
-%flex {
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
 #fileDropArea {
@@ -45,47 +73,33 @@ body {
   bottom: 0;
 }
 
-.bar {
-  @extend %flex;
-
-  position: fixed;
-  z-index: 2;
+.control {
+  position: absolute;
+  z-index: 100;
   bottom: 0;
   left: 0;
   right: 0;
-  height: $bar-height;
-  font-size: 16px;
-  padding: 0 20px;
+  box-sizing: border-box;
+  height: $control-bar-height;
+  padding: 20px;
+  padding: 0;
 
-  a {
-    color: inherit;
-  }
-
-  label {
-    cursor: pointer;
+  &_row {
+    @include flex;
+    & + & {
+      margin-top: 10px;
+    }
   }
 
   &_item {
-    @extend %flex;
-
-    & + & {
-      margin-left: 10px;
-    }
-
-    &--control {
-      background: #f6f6f6;
-      padding: 0 10px;
-      height: calc(100% - 50px);
-      border-radius: 2px;
-
-      .label {
-        color: #888;
-        margin-right: 10px;
-      }
-    }
+    min-height: 30px;
+    background: #eee;
+    padding: 5px 10px;
+    @include flex;
 
     &--checkbox {
       position: relative;
+      padding: 0;
 
       .label {
         z-index: 1;
@@ -105,65 +119,97 @@ body {
         }
       }
     }
+
+    &--download {
+      background: none;
+      @include mobile {
+        display: none;
+      }
+    }
+  }
+}
+
+.label {
+  color: #aaa;
+  margin-right: 5px;
+
+  @include mobile {
+    display: none;
   }
 
-  &_input {
+  &--checkbox {
     display: block;
-    text-align: center;
-    outline: 0;
-    border: 0;
-    font-size: 1.2em;
-    background: none;
+    padding: 0 10px;
+  }
+}
 
-    &--text {
-      width: 400px;
-      display: block;
+.input {
+  display: block;
+  text-align: center;
+  outline: 0;
+  border: 0;
+  font-size: 1.2em;
+  background: none;
+  box-sizing: border-box;
+
+  &--text {
+    display: block;
+    text-align: left;
+    @include mobile {
+      width: 100px;
     }
+    @include desktop {
+      width: 400px;
+    }
+  }
 
-    &--color {
-      margin-left: 5px;
-      width: 30px;
-      height: 15px;
-      border-radius: 2px;
-      outline: 0;
-      border: 2px solid transparent;
-      cursor: pointer;
+  &--color {
+    margin-left: 5px;
+    width: 30px;
+    height: 15px;
+    border-radius: 2px;
+    outline: 0;
+    border: 2px solid transparent;
+    cursor: pointer;
 
-      &:focus {
+    &:focus {
+      border: 2px solid #000;
+    }
+  }
+
+  &--range {
+    width: 70px;
+  }
+
+  &--checkbox {
+    opacity: 0;
+    position: absolute;
+    $active: #e00000;
+
+    & + .label {
+      color: #000;
+
+      &::before {
+        background: #fff;
         border: 2px solid #000;
       }
     }
 
-    &--checkbox {
-      opacity: 0;
-      position: absolute;
-      $active: #e00000;
+    &:focus + .label::before {
+      border-color: $active;
+    }
 
-      & + .label {
-        color: #000;
+    &:checked + .label {
+      color: #000;
 
-        &::before {
-          background: #fff;
-          border: 2px solid #000;
-        }
-      }
-
-      &:focus + .label::before {
-        border-color: $active;
-      }
-
-      &:checked + .label {
-        color: #000;
-
-        &::before {
-          background: $active;
-        }
+      &::before {
+        background: $active;
       }
     }
   }
+}
 
-  #download {
-    font-size: 0.8em;
-    margin-left: 10px;
-  }
+#download {
+  font-size: 0.8em;
+  margin-left: 10px;
 }

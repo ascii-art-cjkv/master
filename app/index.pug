@@ -9,25 +9,27 @@ html(lang='en')
     title Document
   body
     #fileDropArea
-    .bar
-      .bar_item.bar_item--control
-        label.label(for='text') text
-        input.bar_input.bar_input--text#text(type='text')
-      .bar_item.bar_item--control
-        .label color
-        button#color.bar_input--color(class="jscolor {\
-          shadow: false, borderWidth: 0, borderRadius: 0, backgroundColor: 'transparent', insetColor: 'transparent', \
-          value: '#004fb0', valueElement: null, \
-          onFineChange: 'updateColor(this)'}")
-        button#bgColor.bar_input--color(class="jscolor {\
-          shadow: false, borderWidth: 0, borderRadius: 0, backgroundColor: 'transparent', insetColor: 'transparent', \
-          value: '#fffff1', valueElement: null, \
-          onFineChange: 'updateBgColor(this)'}")
-      .bar_item.bar_item--control
-        label.label(for='resolution') resolution
-        input.bar_input.bar_input--range#resolution(type='range' min='3' max='100' step='1' value='30')
-      label.bar_item.bar_item--control.bar_item--checkbox
-        input.bar_input--checkbox#webcam(type='checkbox')
-        .label webcam
-      .bar_item
-        a#download(href='#' download='CJKV.png') download
+    .control
+      .control_row
+        .control_item
+          label.label(for='text') text
+          input.input.input--text#text(type='text')
+        .control_item
+          .label color
+          button#color.input--color(class="jscolor {\
+            shadow: false, borderWidth: 0, borderRadius: 0, backgroundColor: 'transparent', insetColor: 'transparent', \
+            value: '#004fb0', valueElement: null, \
+            onFineChange: 'updateColor(this)'}")
+          button#bgColor.input--color(class="jscolor {\
+            shadow: false, borderWidth: 0, borderRadius: 0, backgroundColor: 'transparent', insetColor: 'transparent', \
+            value: '#fffff1', valueElement: null, \
+            onFineChange: 'updateBgColor(this)'}")
+        .control_item
+          label.label(for='resolution') resolution
+          input.input.input--range#resolution(type='range' min='3' max='100' step='1' value='30')
+      .control_row
+        .control_item.control_item--checkbox
+          input.input--checkbox#webcam(type='checkbox')
+          .label.label--checkbox webcam
+        .control_item.control_item--download
+          a#download(href='#' download='CJKV.png') download

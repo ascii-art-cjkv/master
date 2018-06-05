@@ -6,8 +6,8 @@ import xx from 'xx'
 const settings = {
   text: '中文字的順序會影響閱讀。ㄅㄆㄇㄈㄉㄊㄋㄌㄍㄎㄏㄐ',
   resolution: 30,
-  color: '#000000',
-  bgColor: '#ffffff'
+  color: '#004fb0',
+  bgColor: '#fffff1'
 }
 
 const painter = new AsciiPainter(settings)
