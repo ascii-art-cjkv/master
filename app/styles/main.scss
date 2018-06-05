@@ -33,6 +33,10 @@ $desktop-width: 1024px;
   justify-content: center;
 }
 
+a {
+  color: #004fb0;
+}
+
 body {
   font-family: 'Asap', sans-serif;
 
@@ -100,6 +104,7 @@ body {
     &--checkbox {
       position: relative;
       padding: 0;
+      cursor: pointer;
 
       .label {
         z-index: 1;
