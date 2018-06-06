@@ -1,4 +1,5 @@
 import dragDrop from 'drag-drop'
+import EXIF from 'exif-js'
 import { xx, isMobile } from 'xx'
 
 // thanks!
@@ -17,6 +18,9 @@ function Uint8ToBase64(u8Arr) {
   }
   return btoa(result)
 }
+
+// thanks 2!
+// https://nsulistiyawan.github.io/2016/07/11/Fix-image-orientation-with-Javascript.html
 
 class FileHandler {
   constructor(painter) {
@@ -45,11 +49,31 @@ class FileHandler {
   }
 
   onInputChange(e) {
-    this.readFile(e.target.files[0])
+    // this.readFile(e.target.files[0])
+    this.readFileByLoadImage(e.target.files[0])
   }
 
   readFile(file) {
     this.reader.readAsArrayBuffer(file)
+  }
+
+  readFileByLoadImage(file) {
+    loadImage.parseMetaData(file, (data) => {
+      let orientation = 0
+      if (data.exif) {
+        orientation = data.exif.get('Orientation')
+      }
+
+      const loadingImage = loadImage(file,
+        (canvas) => {
+          const datajpg = canvas.toDataURL('image/jpeg')
+          this.painter.imageParser.load(datajpg)
+        }, {
+          canvas: true,
+          orientation,
+        }
+      )
+    })
   }
 
   initDragDrop() {
@@ -61,6 +85,5 @@ class FileHandler {
     })
   }
 }
-
 
 export default FileHandler
