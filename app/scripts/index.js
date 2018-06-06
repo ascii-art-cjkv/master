@@ -1,5 +1,6 @@
 import './../styles/main.scss'
-import './../index.pug'
+if (process.env.NODE_ENV !== 'production') {
+  require('./../index.pug')
+}
 
 import './ascii'
-// import './dots'
