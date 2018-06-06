@@ -12,10 +12,10 @@ html(lang='en')
     #fileDropArea
     .control
       .control_row
-        .control_item
+        .control_item.control_item--text
           label.label(for='text') text
           input.input.input--text#text(type='text')
-        .control_item
+        .control_item.control_item--color
           .label color
           button#color.input--color(class="jscolor {\
             shadow: false, borderWidth: 0, borderRadius: 0, backgroundColor: 'transparent', insetColor: 'transparent', \
@@ -25,15 +25,17 @@ html(lang='en')
             shadow: false, borderWidth: 0, borderRadius: 0, backgroundColor: 'transparent', insetColor: 'transparent', \
             value: '#fffff1', valueElement: null, \
             onFineChange: 'updateBgColor(this)'}")
+      .control_row
         .control_item
           label.label(for='resolution') resolution
-          input.input.input--range#resolution(type='range' min='3' max='100' step='1' value='30')
+          input.input.input--range#resolution(type='range' min='10' max='100' step='1' value='55')
       .control_row
-        label.control_item.control_item--fakeBtn
+        label.control_item.control_item--fakeBtn.hide-mobile
           input.input--fakeBtn#webcam(type='checkbox')
           .label.label--fakeBtn webcam
         label.control_item.control_item--fakeBtn
           input.input--fakeBtn#file(type='file')
-          .label.label--fakeBtn upload
+          .label.label--fakeBtn.hide-mobile upload
+          .label.label--fakeBtn.show-mobile camera
         .control_item.control_item--download
           a#download(href='#' download='CJKV.png') download

@@ -1,6 +1,6 @@
 import xx from 'xx'
 import PixelParser from './PixelParser'
-import imgUrl from '../../images/sample.png'
+import imgUrl from '../../images/gradient.jpg'
 
 class ImageParser extends PixelParser {
   constructor(resolution) {
@@ -11,6 +11,7 @@ class ImageParser extends PixelParser {
   load(url = imgUrl) {
     const imgDom = document.createElement('img')
     imgDom.onload = () => {
+      this.trigger('imageLoad')
       this.setImageSize(this.imgDom.width, this.imgDom.height)
       this.draw()
     }

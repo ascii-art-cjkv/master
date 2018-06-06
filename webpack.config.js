@@ -172,6 +172,9 @@ const productionConfig = merge([
   }),
   parts.purifyCSS({
     paths: glob.sync(`${paths.app}/**/*.+(pug|js)`, { nodir: true }),
+    purifyOptions: {
+      whitelist: ['*rangeslider*'],
+    },
     styleExtensions: ['.css', '.scss']
   }),
   parts.minifyCSS({

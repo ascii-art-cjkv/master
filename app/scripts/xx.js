@@ -1,4 +1,4 @@
-export default function xx() {
+export function xx() {
   return console.log.apply(this, arguments)
 }
 

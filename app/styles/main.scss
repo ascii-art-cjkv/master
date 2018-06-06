@@ -1,37 +1,9 @@
-$control-bar-height: 110px;
-
+$control-bar-height: 150px;
 $tablet-width: 850px;
 $desktop-width: 1024px;
 
-@mixin min-width($width) {
-  @media (min-width: #{$width}) {
-    @content;
-  }
-}
-
-@mixin mobile {
-  @media (max-width: #{$tablet-width - 1}) {
-    @content;
-  }
-}
-
-@mixin tablet {
-  @include min-width($tablet-width) {
-    @content;
-  }
-}
-
-@mixin desktop {
-  @include min-width($desktop-width) {
-    @content;
-  }
-}
-
-@mixin flex {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
+@import './_mixin.scss';
+@import './_rangeslider.scss';
 
 a {
   color: #004fb0;
@@ -39,6 +11,11 @@ a {
 
 body {
   font-family: 'Asap', sans-serif;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+
+  .is-mobile & {
+    background: #eee;
+  }
 
   &.drag-file {
     &::after {
@@ -55,30 +32,29 @@ body {
   }
 }
 
+.show-mobile.show-mobile {
+  display: none;
+
+  .is-mobile & {
+    display: block;
+  }
+}
+
+.hide-mobile.hide-mobile {
+  .is-mobile & {
+    display: none;
+  }
+}
+
 #ascii {
   display: block;
   position: absolute;
   left: 50%;
   top: calc(50% - #{($control-bar-height / 2)});
   transform: translate(-50%, -50%);
-  background: #aaa;
 
   .drag-file & {
     opacity: 0.2;
-  }
-}
-
-#webcam-video {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%) scale(-1, 1);
-  z-index: 3;
-  width: 100vw;
-  height: 100vh;
-  display: none;
-  &.is-playing {
-    display: block;
   }
 }
 
@@ -91,6 +67,21 @@ body {
   bottom: 0;
 }
 
+.label {
+  color: #aaa;
+  margin-right: 5px;
+
+  @include mobile {
+    display: none;
+  }
+
+  &--fakeBtn {
+    display: block;
+    padding: 0 10px;
+    width: 100%;
+  }
+}
+
 .control {
   position: absolute;
   z-index: 2;
@@ -99,21 +90,37 @@ body {
   right: 0;
   box-sizing: border-box;
   height: $control-bar-height;
-  padding: 20px;
-  padding: 0;
 
   &_row {
     @include flex;
-    & + & {
+
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 5px 0;
+    background: #f3f3f3;
+
+    &:last-child {
       margin-top: 10px;
+      text-align: center;
+      background: none;
+
+      .is-mobile & {
+        width: 80%;
+      }
     }
   }
 
   &_item {
     min-height: 30px;
-    background: #eee;
-    padding: 5px 10px;
+    padding: 0 10px;
+    width: 100%;
+
     @include flex;
+
+    &--color {
+      width: 30%;
+    }
 
     &--fakeBtn {
       position: relative;
@@ -145,21 +152,12 @@ body {
 
     &--download {
       background: none;
+      width: 50%;
+
+      .is-mobile & {
+        width: 100%;
+      }
     }
-  }
-}
-
-.label {
-  color: #aaa;
-  margin-right: 5px;
-
-  @include mobile {
-    display: none;
-  }
-
-  &--fakeBtn {
-    display: block;
-    padding: 0 10px;
   }
 }
 
@@ -180,11 +178,13 @@ body {
   &--text {
     display: block;
     text-align: left;
+
     @include mobile {
-      width: 100px;
+      width: 100%;
     }
+
     @include desktop {
-      width: 400px;
+      flex-grow: 1;
     }
   }
 
@@ -203,17 +203,18 @@ body {
   }
 
   &--range {
-    width: 70px;
+    width: 100%;
   }
 
   &--fakeBtn {
+    $active: #e00000;
+
     opacity: 0;
     position: absolute;
-    $active: #e00000;
     width: 0;
     height: 0;
 
-    & + .label {
+    & ~ .label {
       color: #000;
 
       &::before {
@@ -222,11 +223,11 @@ body {
       }
     }
 
-    &:focus + .label::before {
+    &:focus ~ .label::before {
       border-color: $active;
     }
 
-    &:checked + .label {
+    &:checked ~ .label {
       color: #000;
 
       &::before {
@@ -239,4 +240,6 @@ body {
 #download {
   font-size: 0.8em;
   margin-left: 10px;
+  display: block;
+  width: 100%;
 }

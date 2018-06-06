@@ -17,11 +17,16 @@ class AsciiPainter extends Canvas {
       bgColor: '#000000',
     }
 
+    // this.isTransparent = true
+
     Object.assign(this, Object.assign(defaultOptions, options))
 
     this.charParser = new CharParser(this.text)
-    this.webcamParser = new WebcamParser(this.resolution)
     this.imageParser = new ImageParser(this.resolution)
+
+    if (!this.isMobile) {
+      this.webcamParser = new WebcamParser(this.resolution)
+    }
 
     this.appendCanvasToBody()
     this.fullscreen()
@@ -34,7 +39,11 @@ class AsciiPainter extends Canvas {
   // public
 
   setSourceToWebcam(toUseWebcam) {
+    // if (toUseWebcam && this.sourceObj === this.webcamParser) return
     this.sourceObj = toUseWebcam && this.webcamParser || this.imageParser
+
+    if (this.isMobile) return
+
     if (toUseWebcam) {
       this.webcamParser.getWebcam()
     } else {
@@ -46,7 +55,7 @@ class AsciiPainter extends Canvas {
   setResolution(resolution) {
     this.resolution = resolution
     this.imageParser.setResolution(resolution)
-    this.webcamParser.setResolution(resolution)
+    !this.isMobile && this.webcamParser.setResolution(resolution)
     this.updateCharSize()
     this.redraw()
   }
@@ -74,13 +83,17 @@ class AsciiPainter extends Canvas {
   }
 
   observe() {
-    this.charParser.on('charsUpdated', this.redraw.bind(this))
-    this.webcamParser.on('grayDataUpdated', this.redraw.bind(this))
-    this.imageParser.on('grayDataUpdated', this.redraw.bind(this))
-
-    this.imageParser.on('imageSizeChanged', this.resize.bind(this))
-    this.webcamParser.on('imageSizeChanged', this.resize.bind(this))
     window.addEventListener('resize', this.resize.bind(this))
+
+    this.charParser.on('charsUpdated', this.redraw.bind(this))
+    this.imageParser.on('grayDataUpdated', this.redraw.bind(this))
+    this.imageParser.on('imageSizeChanged', this.resize.bind(this))
+    this.imageParser.on('imageLoad', () => this.setSourceToWebcam(false))
+
+    if (this.isMobile) return;
+
+    this.webcamParser.on('grayDataUpdated', this.redraw.bind(this))
+    this.webcamParser.on('imageSizeChanged', this.resize.bind(this))
   }
 
   redraw() {
@@ -94,9 +107,9 @@ class AsciiPainter extends Canvas {
 
     const toRetinaScale = window.devicePixelRatio > 1 ? 2 : 1
 
-    const padding = this.isMobile ? 0 : 20
-    const controlBarHeight =  130
-    const maxWidth = (window.innerWidth - padding * 2 - controlBarHeight) * toRetinaScale
+    const padding = 20
+    const controlBarHeight = parseInt(getComputedStyle(document.querySelector('.control')).height)
+    const maxWidth = (window.innerWidth - padding * 2) * toRetinaScale
     const maxHeight = (window.innerHeight - padding * 2 - controlBarHeight) * toRetinaScale
     const ratio = imageWidth / imageHeight
     const windowRatio = maxWidth / maxHeight
