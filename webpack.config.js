@@ -50,8 +50,8 @@ const paths = getPaths()
 const lintStylesOptions = {
   context: path.resolve(__dirname, `${paths.app}/styles`),
   syntax: 'scss',
-  emitErrors: false
-  // fix: true,
+  emitErrors: false,
+  fix: true,
 }
 
 const cssPreprocessorLoader = { loader: 'fast-sass-loader' }
