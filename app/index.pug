@@ -6,7 +6,7 @@ html(lang='en')
     meta(http-equiv='X-UA-Compatible' content='ie=edge')
     link(href='https://fonts.googleapis.com/css?family=Asap:400i' rel='stylesheet')
     script(src='https://cdnjs.cloudflare.com/ajax/libs/jscolor/2.0.4/jscolor.js')
-    title Document
+    title ASCII Art in CJKV
   body
     #fileDropArea
     .control
@@ -28,8 +28,11 @@ html(lang='en')
           label.label(for='resolution') resolution
           input.input.input--range#resolution(type='range' min='3' max='100' step='1' value='30')
       .control_row
-        label.control_item.control_item--checkbox
-          input.input--checkbox#webcam(type='checkbox')
-          .label.label--checkbox webcam
+        label.control_item.control_item--fakeBtn
+          input.input--fakeBtn#webcam(type='checkbox')
+          .label.label--fakeBtn webcam
+        label.control_item.control_item--fakeBtn
+          input.input--fakeBtn#file(type='file')
+          .label.label--fakeBtn upload
         .control_item.control_item--download
           a#download(href='#' download='CJKV.png') download

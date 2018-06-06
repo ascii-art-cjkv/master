@@ -1,5 +1,5 @@
 import AsciiPainter from './AsciiPainter'
-import initFileHandler from './file-handler'
+import FileHandler from './FileHandler'
 
 import xx from 'xx'
 
@@ -12,7 +12,8 @@ const settings = {
 
 const painter = new AsciiPainter(settings)
 
-initFileHandler(painter)
+new FileHandler(painter)
+
 class Control {
   constructor(settings) {
     Object.keys(settings).forEach(domId => {
