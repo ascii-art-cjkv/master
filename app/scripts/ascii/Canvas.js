@@ -1,4 +1,4 @@
-import xx from 'xx'
+import { xx, isMobile } from 'xx'
 import eventMixin from '../eventMixin'
 
 class Canvas {
@@ -6,6 +6,7 @@ class Canvas {
   constructor() {
     this.canvasDom = document.createElement('canvas')
     this.ctx = this.canvasDom.getContext('2d')
+    this.isMobile = isMobile()
   }
 
   setReverse(isReverse) {
@@ -36,8 +37,9 @@ class Canvas {
     this.ctx.clearRect(0, 0, this.width, this.height);
   }
 
-  getImageData() {
-    return this.ctx.getImageData(0, 0, this.width, this.height).data
+  getImageData(raw = false) {
+    const data = this.ctx.getImageData(0, 0, this.width, this.height);
+    return raw ? data : data.data
   }
 }
 

@@ -68,6 +68,20 @@ body {
   }
 }
 
+#webcam-video {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%) scale(-1, 1);
+  z-index: 3;
+  width: 100vw;
+  height: 100vh;
+  display: none;
+  &.is-playing {
+    display: block;
+  }
+}
+
 #fileDropArea {
   position: absolute;
   z-index: 1;
