@@ -52,6 +52,12 @@ body {
   left: 50%;
   top: calc(50% - #{($control-bar-height / 2)});
   transform: translate(-50%, -50%);
+  transition: opacity 0.3s;
+  opacity: 0;
+
+  &.is-done {
+    opacity: 1;
+  }
 
   .drag-file & {
     opacity: 0.2;
@@ -221,10 +227,6 @@ body {
         background: #fff;
         border: 2px solid #000;
       }
-    }
-
-    &:focus ~ .label::before {
-      border-color: $active;
     }
 
     &:checked ~ .label {

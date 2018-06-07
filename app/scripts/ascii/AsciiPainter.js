@@ -15,14 +15,13 @@ class AsciiPainter extends Canvas {
       webcam: false,
       color: '#cc0000',
       bgColor: '#000000',
+      image: 'sample.png',
     }
-
-    // this.isTransparent = true
 
     Object.assign(this, Object.assign(defaultOptions, options))
 
     this.charParser = new CharParser(this.text)
-    this.imageParser = new ImageParser(this.resolution)
+    this.imageParser = new ImageParser(this.resolution, this.image)
 
     if (!this.isMobile) {
       this.webcamParser = new WebcamParser(this.resolution)
@@ -48,7 +47,7 @@ class AsciiPainter extends Canvas {
       this.webcamParser.getWebcam()
     } else {
       this.webcamParser.stopWebcam()
-      this.resize()
+      this.sourceObj.imageWidth && this.resize()
     }
   }
 
@@ -98,8 +97,10 @@ class AsciiPainter extends Canvas {
 
   redraw() {
     if (!this.sourceObj.grayData || !this.charParser.chars) return
+    this.isTransparent = this.charParser.hasSpace
     this.grayData = this.getMappedGrayData()
     this.draw()
+    this.canvasDom.classList.add('is-done')
   }
 
   resize() {

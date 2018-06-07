@@ -23,6 +23,7 @@ class CharParser extends Canvas {
   parse(text) {
     this.chars = []
 
+    this.hasSpace = text.includes(' ')
     this.updateChars(text)
     this.trigger('charsUpdated', this.chars)
   }

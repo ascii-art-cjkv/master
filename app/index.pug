@@ -17,18 +17,10 @@ html(lang='en')
           input.input.input--text#text(type='text')
         .control_item.control_item--color
           .label color
-          button#color.input--color(class="jscolor {\
-            shadow: false, borderWidth: 0, borderRadius: 0, backgroundColor: 'transparent', insetColor: 'transparent', \
-            value: '#004fb0', valueElement: null, \
-            onFineChange: 'updateColor(this)'}")
-          button#bgColor.input--color(class="jscolor {\
-            shadow: false, borderWidth: 0, borderRadius: 0, backgroundColor: 'transparent', insetColor: 'transparent', \
-            value: '#fffff1', valueElement: null, \
-            onFineChange: 'updateBgColor(this)'}")
       .control_row
         .control_item
           label.label(for='resolution') resolution
-          input.input.input--range#resolution(type='range' min='10' max='100' step='1' value='55')
+          input.input.input--range#resolution(type='range' min='20' max='100' step='5' value='80')
       .control_row
         label.control_item.control_item--fakeBtn.hide-mobile
           input.input--fakeBtn#webcam(type='checkbox')

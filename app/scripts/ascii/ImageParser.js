@@ -1,14 +1,20 @@
 import xx from 'xx'
 import PixelParser from './PixelParser'
-import imgUrl from '../../images/gradient.jpg'
+
+function importAll(r) {
+  let images = {};
+  r.keys().map((item) => { images[item.replace('./', '')] = r(item); });
+  return images;
+}
 
 class ImageParser extends PixelParser {
-  constructor(resolution) {
+  constructor(resolution, imageName) {
     super(resolution)
-    this.load()
+    const images = importAll(require.context('../../images', false, /\.(png|jpe?g)$/));
+    this.load(images[imageName])
   }
 
-  load(url = imgUrl) {
+  load(url) {
     const imgDom = document.createElement('img')
     imgDom.onload = () => {
       this.trigger('imageLoad')
