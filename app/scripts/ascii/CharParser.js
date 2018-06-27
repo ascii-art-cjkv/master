@@ -36,6 +36,7 @@ class CharParser extends Canvas {
   }
 
   updateChar(char) {
+    this.ctx.fillStyle = 'red'
     this.ctx.fillText(char, 0, 0)
     this.chars.push({
       char,

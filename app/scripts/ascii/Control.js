@@ -12,32 +12,51 @@ const defaultJsColorOptions = {
 
 class Control {
   constructor(settings, painter) {
+    this.painter = painter
+    this.addColor('color', (jsColor) => painter.setColor(`#${jsColor}`))
+    this.addColor('bgColor', (jsColor) => painter.setBgColor(`#${jsColor}`))
+    this.applySettings(settings)
+  }
+
+  applySettings(settings) {
     Object.keys(settings).forEach(domId => {
-      this.addElement(domId)
+      const el = this.addElement(domId)
+
+      if (!el) return
 
       const value = settings[domId]
       const attr = typeof value === 'boolean' ? 'checked' : 'value'
 
-      if (!this[domId]) return
-      this[domId].setAttribute(attr, value)
+      el[attr] = value
+
+      if (['color', 'bgColor'].includes(domId)) {
+        el.style.background = value
+        this.painter.set(domId, value)
+      }
+
+      if (domId === 'resolution') {
+        el.setAttribute(attr, value)
+        const rangeslider = el['rangeslider-js']
+
+        // workaround to fix unchanged rangeslide position
+        rangeslider && rangeslider.destroy()
+        rangesliderJs.create(el)
+      }
+
+      el.dispatchEvent(new Event('change'))
     })
-
-    this.addColor(settings.color, 'color', 'updateColor')
-    this.addColor(settings.bgColor, 'bgColor', 'updateBgColor')
-
-    window.updateColor = function (jsColor) { painter.setColor(`#${jsColor}`) }
-    window.updateBgColor = function (jsColor) { painter.setBgColor(`#${jsColor}`) }
-
-    rangesliderJs.create(document.querySelectorAll('input[type="range"]'))
   }
 
-  addColor(value, id, changeHandler) {
+  addColor(id, changeHandler) {
+    window[`change${id}`] = changeHandler
+
     const colorContainer = document.querySelector('.control_item--color')
     const button = document.createElement('button')
+    const option = Object.assign(defaultJsColorOptions, { onFineChange: `change${id}(this)` });
+    const picker = new jscolor(button, option)
+
     button.setAttribute('id', id)
     button.classList.add('input--color')
-    const option = Object.assign(defaultJsColorOptions, { value, onFineChange: `${changeHandler}(this)` });
-    const picker = new jscolor(button, option)
     colorContainer.appendChild(button)
   }
 

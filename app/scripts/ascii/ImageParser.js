@@ -10,6 +10,10 @@ function importAll(r) {
 class ImageParser extends PixelParser {
   constructor(resolution, imageName) {
     super(resolution)
+    this.loadSample(imageName)
+  }
+
+  loadSample(imageName) {
     const images = importAll(require.context('../../images', false, /\.(png|jpe?g)$/));
     this.load(images[imageName])
   }

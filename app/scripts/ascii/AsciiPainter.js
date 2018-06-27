@@ -67,7 +67,13 @@ class AsciiPainter extends Canvas {
 
   setBgColor(bgColor) {
     this.bgColor = bgColor
+    document.body.style.backgroundColor = this.bgColor;
     this.redraw()
+  }
+
+  set(key, value) {
+    const methodName = key.charAt(0).toUpperCase() + key.slice(1)
+    this[`set${methodName}`](value)
   }
 
   toDataURL() {
@@ -100,7 +106,9 @@ class AsciiPainter extends Canvas {
     this.isTransparent = this.charParser.hasSpace
     this.grayData = this.getMappedGrayData()
     this.draw()
-    this.canvasDom.classList.add('is-done')
+    setTimeout(() => {
+      this.canvasDom.classList.add('is-done')
+    }, 300);
   }
 
   resize() {

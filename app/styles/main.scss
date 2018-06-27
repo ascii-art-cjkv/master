@@ -52,11 +52,12 @@ body {
   left: 50%;
   top: calc(50% - #{($control-bar-height / 2)});
   transform: translate(-50%, -50%);
-  transition: opacity 0.3s;
+  transition: opacity 0;
   opacity: 0;
 
   &.is-done {
     opacity: 1;
+    transition: opacity 0.3s;
   }
 
   .drag-file & {
