@@ -50,9 +50,9 @@ class Control {
   addColor(id, changeHandler) {
     window[`change${id}`] = changeHandler
 
-    const colorContainer = document.querySelector('.control_item--color')
+    const colorContainer = document.querySelector('.controls_item--color')
     const button = document.createElement('button')
-    const option = Object.assign(defaultJsColorOptions, { onFineChange: `change${id}(this)` });
+    const option = Object.assign(defaultJsColorOptions, { onFineChange: `change${id}(this)` })
     const picker = new jscolor(button, option)
 
     button.setAttribute('id', id)

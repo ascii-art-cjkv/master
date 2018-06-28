@@ -6,7 +6,7 @@ class WebcamParser extends PixelParser {
   constructor(resolution) {
     super(resolution)
 
-    if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) return false; // no camera
+    if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) return false // no camera
 
     this.video = document.createElement('video')
 

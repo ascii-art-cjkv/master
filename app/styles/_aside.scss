@@ -1,0 +1,49 @@
+@import './_controls.scss';
+@import './_actions.scss';
+
+.aside {
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  z-index: 999;
+  padding: $margin-v-s $margin-h-s;
+  background: #fff;
+  user-select: none;
+  height: $side-h;
+
+  @include tablet {
+    display: flex;
+  }
+
+  @include desktop {
+    display: block;
+    bottom: 0;
+    padding: $margin-v $margin-h;
+    width: $side-w;
+    height: auto;
+  }
+}
+
+.copyright {
+  font-size: 0.6em;
+  font-weight: normal;
+  text-decoration: none;
+  margin: auto 0;
+
+  @include mobile {
+    position: fixed;
+    margin: 0;
+    right: $margin-h-s;
+    bottom: $margin-v-s;
+    line-height: 20px;
+  }
+
+  @include desktop {
+    position: absolute;
+    right: auto;
+    left: $margin-h;
+    bottom: $margin-v;
+    margin: 0;
+  }
+}

@@ -1,0 +1,61 @@
+* {
+  box-sizing: border-box;
+}
+
+a {
+  color: #000;
+}
+
+ul, li {
+  margin: 0;
+  bottom: 0;
+}
+
+body {
+  font-family: 'Hiragino Sans GB', sans-serif;
+  font-weight: bold;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  display: block;
+  transition: background 0.3s;
+
+  .is-mobile & {
+    background: #eee;
+  }
+
+  &.drag-file {
+    &::after {
+      content: 'Drop!';
+      display: block;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+      font-size: 100px;
+      font-style: italic;
+    }
+  }
+}
+
+.show-mobile.show-mobile {
+  display: none;
+
+  .is-mobile & {
+    display: block;
+  }
+}
+
+.hide-mobile.hide-mobile {
+  .is-mobile & {
+    display: none;
+  }
+}
+
+#fileDropArea {
+  position: absolute;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+}
