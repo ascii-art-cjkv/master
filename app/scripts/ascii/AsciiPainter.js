@@ -5,6 +5,8 @@ import CharParser from './CharParser'
 import ImageParser from './ImageParser'
 import WebcamParser from './WebcamParser'
 
+const TO_RETINA_SCALE = window.devicePixelRatio > 1 ? 2 : 1
+
 class AsciiPainter extends Canvas {
   constructor(options) {
     super()
@@ -26,6 +28,8 @@ class AsciiPainter extends Canvas {
     if (!this.isMobile) {
       this.webcamParser = new WebcamParser(this.resolution)
     }
+
+    // this.textarea = document.getElementById('textarea')
 
     this.appendCanvasToBody()
     this.fullscreen()
@@ -62,6 +66,7 @@ class AsciiPainter extends Canvas {
   setColor(color) {
     this.color = color
     this.ctx.fillStyle = this.color
+    // this.textarea.style.color = this.color
     this.redraw()
   }
 
@@ -114,12 +119,12 @@ class AsciiPainter extends Canvas {
   resize() {
     const { imageHeight, imageWidth } = this.sourceObj
 
-    const toRetinaScale = window.devicePixelRatio > 1 ? 2 : 1
+    const paddingH = 50
+    const paddingV = 80
+    const sideWidth = 320
 
-    const padding = 20
-    const controlBarHeight = parseInt(getComputedStyle(document.querySelector('.control')).height)
-    const maxWidth = (window.innerWidth - padding * 2) * toRetinaScale
-    const maxHeight = (window.innerHeight - padding * 2 - controlBarHeight) * toRetinaScale
+    const maxWidth = (window.innerWidth - paddingH * 2 - sideWidth) * TO_RETINA_SCALE
+    const maxHeight = (window.innerHeight - paddingV * 2) * TO_RETINA_SCALE
     const ratio = imageWidth / imageHeight
     const windowRatio = maxWidth / maxHeight
 
@@ -133,6 +138,9 @@ class AsciiPainter extends Canvas {
       width = ratio * height
     }
 
+    // this.textarea.style.width = width / TO_RETINA_SCALE + 'px'
+    // this.textarea.style.height = height / TO_RETINA_SCALE + 'px'
+
     this.setSize(width, height)
     this.setColor(this.color)
     this.updateCharSize()
@@ -142,14 +150,15 @@ class AsciiPainter extends Canvas {
   updateCharSize() {
     this.charSize = this.height / this.resolution
     this.setFont(`${this.charSize}px sans-serif`)
+    // this.textarea.style.fontSize = this.charSize / TO_RETINA_SCALE + 'px'
   }
 
   fullscreen() {
-    const toRetinaScale = window.devicePixelRatio > 1 ? 2 : 1
-    this.setSize(window.innerWidth * toRetinaScale, window.innerHeight * toRetinaScale)
+    this.setSize(window.innerWidth * TO_RETINA_SCALE, window.innerHeight * TO_RETINA_SCALE)
   }
 
   clear() {
+    // this.plainTexts = ''
     this.ctx.clearRect(0, 0, this.width, this.height)
   }
 
@@ -158,6 +167,7 @@ class AsciiPainter extends Canvas {
 
     let pixelIndex, pixelGray, charObj
     const offsetX = (this.width - (this.charSize * this.sourceObj.width)) / 2
+    // const plainTexts = []
 
     for (let y = 0; y < this.sourceObj.height; y++) {
       for (let x = 0; x < this.sourceObj.width; x++) {
@@ -165,16 +175,25 @@ class AsciiPainter extends Canvas {
         pixelGray = this.grayData[pixelIndex]
         charObj = this.charParser.chars[pixelGray - (this.isTransparent ? 1 : 0)]
 
-        if (!charObj) continue
+        if (!charObj) {
+          // plainTexts.push(' ')
+          continue
+        }
 
         this.ctx.fillText(charObj.char, x * this.charSize + offsetX, y * this.charSize)
+        // plainTexts.push(charObj.char)
       }
+      // plainTexts.push('\n')
     }
+    // this.plainTexts = plainTexts.join('')
+    // this.exportTexts()
   }
 
-  getMappedGrayData() {
-    let newGray;
+  // exportTexts() {
+  //   this.textarea.innerText = this.plainTexts
+  // }
 
+  getMappedGrayData() {
     const grayData = this.sourceObj.grayData
     const chars = this.charParser.chars
 

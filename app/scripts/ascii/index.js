@@ -10,14 +10,14 @@ const makePreset = (text, resolution, color, bgColor, image, webcam = false) => 
 
 const isDesktop = !isMobile()
 const presets = [
-  makePreset('黑白灰', 70, '#000', '#fff', 'gradient.jpg'),
-  makePreset('笑 臉 贏 人 ', 20, '#fff', '#000', 'ba90.png'),
-  makePreset('飛快的棕色狐狸跳過了懶狗 ', 30, '#673808', '#e7ff98', 'qbf.jpg'), // from https://dribbble.com/shots/330090-The-quick-brown-fox-
+  makePreset('黑白灰', 20, '#000', '#fff', 'gradient.jpg'),
+  makePreset('笑臉贏人', 80, '#fff', '#000', 'ba90.png'),
+  makePreset('飛快的棕色狐狸跳過了懶狗', 30, '#673808', '#e7ff98', 'qbf.jpg'), // from https://dribbble.com/shots/330090-The-quick-brown-fox-
 ]
 
 if (isDesktop) {
-  presets.push(makePreset('E = instein', 30, '#000', '#fff', 'albert-einstein.jpg'))
-  presets.push(makePreset('人民 政府 自由 畏懼', 20, '#000', '#fff', 'v.jpg'))
+  presets.push(makePreset('E = instein', 100, '#000', '#fff', 'albert-einstein.jpg'))
+  presets.push(makePreset('政府畏懼人民自由', 50, '#000', '#fff', 'v.jpg'))
 }
 
 let sampleIndex = Math.floor(Math.random() * presets.length)

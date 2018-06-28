@@ -4,30 +4,40 @@ html(lang='en')
     meta(charset='UTF-8')
     meta(name='viewport' content='width=device-width, initial-scale=1.0')
     meta(http-equiv='X-UA-Compatible' content='ie=edge')
-    link(href='https://fonts.googleapis.com/css?family=Asap:400i' rel='stylesheet')
     script(src='https://cdnjs.cloudflare.com/ajax/libs/jscolor/2.0.4/jscolor.js')
     script(src='https://cdnjs.cloudflare.com/ajax/libs/blueimp-load-image/2.19.0/load-image.all.min.js')
-    title ASCII Art in CJKV
+    title 點陣文
+    style.
+      body {
+        display: none;
+      }
   body
     #fileDropArea.hide-mobile
-    .control
-      .control_row
-        .control_item.control_item--text
-          label.label(for='text') text
-          input.input.input--text#text(type='text')
-        .control_item.control_item--color
-          .label color
-      .control_row
-        .control_item
-          label.label(for='resolution') resolution
-          input.input.input--range#resolution(type='range' min='20' max='100' step='5' value='80')
-      .control_row
-        label.control_item.control_item--fakeBtn.hide-mobile
-          input.input--fakeBtn#webcam(type='checkbox')
-          .label.label--fakeBtn webcam
-        label.control_item.control_item--fakeBtn
-          input.input--fakeBtn#file(type='file')
-          .label.label--fakeBtn.hide-mobile upload
-          .label.label--fakeBtn.show-mobile camera
-        .control_item.control_item--download
-          a#download(href='#' download='CJKV.png') download
+    pre#textarea(contenteditable='true' autocomplete='off' autocorrect='off' autocapitalize='off' spellcheck='false')
+    .aside
+      .controls
+        .controls_row
+          .controls_item.controls_item--text
+            input.input.input--text#text(type='text' autocomplete='off' autocorrect='off' autocapitalize='off' spellcheck='false')
+        .controls_row
+          .controls_item.controls_item--color
+            //- 2 buttons generate by js
+            //- button#color.input--color
+            //- button#bgColor.input--bgColor
+          .controls_item.controls_item--range
+            input.input.input--range#resolution(type='range' min='20' max='100' step='5' value='80')
+
+      ul.actions
+        li.hide-mobile
+          input#webcam(type='checkbox')
+          label.label.label--webcam(for='webcam') webcam
+        li
+          label.label.label--file(for='file')
+            span.hide-mobile upload
+            span.show-mobile camera
+          input#file(type='file')
+        li.actions_divider
+        li
+          a#download(href='#' download='hihi.png') download
+
+      a.copyright(href='//fb.me/bonanananana' target='_blank') 19

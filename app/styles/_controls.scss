@@ -1,0 +1,71 @@
+@import './_rangeslider.scss';
+
+.controls {
+  &_row {
+    @include flex;
+  }
+
+  &_item {
+    min-height: 30px;
+    width: 100%;
+
+    @include flex;
+
+    &--text {
+      input {
+        font-size: 15px;
+        font-weight: bold;
+        font-family: inherit;
+      }
+    }
+
+    &--color {
+      width: 60px;
+    }
+
+    &--range {
+      margin-left: 20px;
+    }
+  }
+
+  .input {
+    display: block;
+    text-align: center;
+    outline: 0;
+    border: 0;
+    font-size: 1.2em;
+    padding: 0;
+    background: none;
+    box-sizing: border-box;
+
+    .is-mobile & {
+      font-size: 16px;
+    }
+
+    &--text {
+      display: block;
+      text-align: left;
+
+      @include mobile {
+        width: 100%;
+      }
+
+      @include desktop {
+        flex-grow: 1;
+      }
+    }
+
+    &--color {
+      width: 16px;
+      height: 16px;
+      outline: 0;
+      padding: 0;
+      border: 2px solid #000;
+      cursor: pointer;
+    }
+
+    &--range {
+      width: 100%;
+    }
+  }
+}

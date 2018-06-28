@@ -1,13 +1,13 @@
 .rangeslider {
   cursor: pointer;
   position: relative;
-  width: 100%;
+  width: 100px;
   height: 30px;
 
   &__handle {
     position: absolute;
-    width: 14px;
-    height: 14px;
+    width: 17px;
+    height: 17px;
     border-radius: 50%;
     top: 50%;
     background: #fff;
@@ -19,9 +19,8 @@
     position: absolute;
     height: 4px;
     width: 100%;
-    background: #ccc;
+    background: #000;
     transform: translateY(-50%);
-    border-radius: 10px;
   }
 }
 
