@@ -122,9 +122,25 @@ class AsciiPainter extends Canvas {
     const paddingH = 50
     const paddingV = 80
     const sideWidth = 320
+    const sideHeight = 100 // for smaller screen
+    const footerHeight = 64
 
-    const maxWidth = (window.innerWidth - paddingH * 2 - sideWidth) * TO_RETINA_SCALE
-    const maxHeight = (window.innerHeight - paddingV * 2) * TO_RETINA_SCALE
+    const isLarge = window.innerWidth >= 1024;
+    const isMedium = window.innerWidth >= 768;
+
+    let maxWidth, maxHeight;
+
+    if (isLarge) {
+      maxWidth = (window.innerWidth - paddingH * 2 - sideWidth) * TO_RETINA_SCALE
+      maxHeight = (window.innerHeight - paddingV * 2) * TO_RETINA_SCALE
+    } else if (isMedium) {
+      maxWidth = (window.innerWidth - paddingH * 2) * TO_RETINA_SCALE
+      maxHeight = (window.innerHeight - paddingV * 2 - sideHeight) * TO_RETINA_SCALE
+    } else {
+      maxWidth = (window.innerWidth - paddingH) * TO_RETINA_SCALE
+      maxHeight = (window.innerHeight - paddingV - sideHeight - footerHeight) * TO_RETINA_SCALE
+    }
+
     const ratio = imageWidth / imageHeight
     const windowRatio = maxWidth / maxHeight
 

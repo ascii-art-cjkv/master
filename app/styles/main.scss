@@ -1,88 +1,53 @@
 $control-bar-height: 150px;
-$tablet-width: 850px;
+$tablet-width: 768px;
 $desktop-width: 1024px;
 
 $side-w: 320px;
+$side-h: 100px;
+$footer-h: 64px;
 
 $margin-h: 45px;
 $margin-v: 45px;
 
+$margin-h-s: 20px;
+$margin-v-s: 20px;
+
 @import './_mixin.scss';
+@import './_base.scss';
 @import './_aside.scss';
-@import './_controls.scss';
-@import './_actions.scss';
 
-* {
-  box-sizing: border-box;
-}
-
-a {
-  color: #000;
-}
-
-body {
-  font-family: 'Hiragino Sans GB', sans-serif;
-  font-weight: bold;
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-  display: block;
-  transition: background 0.3s;
-
-  .is-mobile & {
-    background: #eee;
-  }
-
-  &.drag-file {
-    &::after {
-      content: 'Drop!';
-      display: block;
-      position: absolute;
-      left: 50%;
-      top: 50%;
-      transform: translate(-50%, -50%);
-      pointer-events: none;
-      font-size: 100px;
-      font-style: italic;
-    }
-  }
-}
-
-.show-mobile.show-mobile {
-  display: none;
-
-  .is-mobile & {
-    display: block;
-  }
-}
-
-.hide-mobile.hide-mobile {
-  .is-mobile & {
-    display: none;
-  }
-}
-
-#textarea {
-  position: absolute;
-  left: calc(50% + #{$side-w / 2});
-  top: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 10000;
-  letter-spacing: 0;
-  line-height: 1em;
-  font-weight: normal;
-  font-size: 8px;
-  background: transparent;
-  border: 0;
-  outline: 0;
-}
+// #textarea {
+//   position: absolute;
+//   left: calc(50% + #{$side-w / 2});
+//   top: 50%;
+//   transform: translate(-50%, -50%);
+//   z-index: 10000;
+//   letter-spacing: 0;
+//   line-height: 1em;
+//   font-weight: normal;
+//   font-size: 8px;
+//   background: transparent;
+//   border: 0;
+//   outline: 0;
+// }
 
 #ascii {
   display: block;
   position: absolute;
-  left: calc(50% + #{$side-w / 2});
-  top: 50%;
-  transform: translate(-50%, -50%);
   transition: opacity 0;
   opacity: 0;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  top: calc(50% + #{($side-h - $footer-h) / 2});
+
+  @include tablet {
+    top: calc(50% + #{$side-h / 2});
+  }
+
+  @include desktop {
+    left: calc(50% + #{$side-w / 2});
+    top: 50%;
+  }
 
   &.is-done {
     opacity: 1;
@@ -92,13 +57,4 @@ body {
   .drag-file & {
     opacity: 0.2;
   }
-}
-
-#fileDropArea {
-  position: absolute;
-  z-index: 1;
-  left: 0;
-  top: 0;
-  right: 0;
-  bottom: 0;
 }
