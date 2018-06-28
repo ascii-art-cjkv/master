@@ -30,19 +30,19 @@ class Canvas {
 
   setFont(font) {
     this.ctx.font = font
-    this.ctx.textBaseline = 'top';
+    this.ctx.textBaseline = 'top'
   }
 
   clear() {
-    this.ctx.clearRect(0, 0, this.width, this.height);
+    this.ctx.clearRect(0, 0, this.width, this.height)
   }
 
   getImageData(raw = false) {
-    const data = this.ctx.getImageData(0, 0, this.width, this.height);
+    const data = this.ctx.getImageData(0, 0, this.width, this.height)
     return raw ? data : data.data
   }
 }
 
-Object.assign(Canvas.prototype, eventMixin);
+Object.assign(Canvas.prototype, eventMixin)
 
 export default Canvas

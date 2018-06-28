@@ -1,4 +1,4 @@
-import xx from 'xx'
+import { xx } from 'xx'
 
 import Canvas from './Canvas'
 import CharParser from './CharParser'
@@ -67,7 +67,7 @@ class AsciiPainter extends Canvas {
 
   setBgColor(bgColor) {
     this.bgColor = bgColor
-    document.body.style.backgroundColor = this.bgColor;
+    document.body.style.backgroundColor = this.bgColor
     this.redraw()
   }
 
@@ -95,7 +95,7 @@ class AsciiPainter extends Canvas {
     this.imageParser.on('imageSizeChanged', this.resize.bind(this))
     this.imageParser.on('imageLoad', () => this.setSourceToWebcam(false))
 
-    if (this.isMobile) return;
+    if (this.isMobile) return
 
     this.webcamParser.on('grayDataUpdated', this.redraw.bind(this))
     this.webcamParser.on('imageSizeChanged', this.resize.bind(this))
@@ -108,7 +108,7 @@ class AsciiPainter extends Canvas {
     this.draw()
     setTimeout(() => {
       this.canvasDom.classList.add('is-done')
-    }, 300);
+    }, 300)
   }
 
   resize() {
@@ -127,7 +127,7 @@ class AsciiPainter extends Canvas {
 
     if (windowRatio < ratio) { // window is thiner
       width = maxWidth
-      height = width  / ratio
+      height = width / ratio
     } else {
       height = maxHeight
       width = ratio * height
@@ -150,10 +150,7 @@ class AsciiPainter extends Canvas {
   }
 
   clear() {
-    this.ctx.save()
-    this.ctx.fillStyle = this.bgColor
-    this.ctx.fillRect(0, 0, this.width, this.height);
-    this.ctx.restore()
+    this.ctx.clearRect(0, 0, this.width, this.height)
   }
 
   draw() {
@@ -185,7 +182,6 @@ class AsciiPainter extends Canvas {
     const grayMax = Math.max.apply(null, grayData)
     const newGrayMin = 0
     const newGrayMax = chars.length - (this.isTransparent ? 0 : 1)
-    const newGrayData = []
 
     return grayData.map((gray) => {
       return newGrayMax - Math.round(this.mapToRange(gray, grayMin, grayMax, newGrayMin, newGrayMax))
@@ -193,7 +189,7 @@ class AsciiPainter extends Canvas {
   }
 
   mapToRange(value, start1, stop1, start2, stop2) {
-    return start2 + (stop2 - start2) * ((value - start1) / (stop1 - start1));
+    return start2 + (stop2 - start2) * ((value - start1) / (stop1 - start1))
   }
 
 }

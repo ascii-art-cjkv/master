@@ -2,9 +2,9 @@ import xx from 'xx'
 import PixelParser from './PixelParser'
 
 function importAll(r) {
-  let images = {};
-  r.keys().map((item) => { images[item.replace('./', '')] = r(item); });
-  return images;
+  let images = {}
+  r.keys().map((item) => { images[item.replace('./', '')] = r(item) })
+  return images
 }
 
 class ImageParser extends PixelParser {
@@ -14,7 +14,7 @@ class ImageParser extends PixelParser {
   }
 
   loadSample(imageName) {
-    const images = importAll(require.context('../../images', false, /\.(png|jpe?g)$/));
+    const images = importAll(require.context('../../images', false, /\.(png|jpe?g)$/))
     this.load(images[imageName])
   }
 
