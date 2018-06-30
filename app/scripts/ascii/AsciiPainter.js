@@ -29,8 +29,6 @@ class AsciiPainter extends Canvas {
       this.webcamParser = new WebcamParser(this.resolution)
     }
 
-    // this.textarea = document.getElementById('textarea')
-
     this.appendCanvasToBody()
     this.fullscreen()
     this.setSourceToWebcam(this.webcam)
@@ -66,7 +64,6 @@ class AsciiPainter extends Canvas {
   setColor(color) {
     this.color = color
     this.ctx.fillStyle = this.color
-    // this.textarea.style.color = this.color
     this.redraw()
   }
 
@@ -154,9 +151,6 @@ class AsciiPainter extends Canvas {
       width = ratio * height
     }
 
-    // this.textarea.style.width = width / TO_RETINA_SCALE + 'px'
-    // this.textarea.style.height = height / TO_RETINA_SCALE + 'px'
-
     this.setSize(width, height)
     this.setColor(this.color)
     this.updateCharSize()
@@ -166,7 +160,6 @@ class AsciiPainter extends Canvas {
   updateCharSize() {
     this.charSize = this.height / this.resolution
     this.setFont(`${this.charSize}px sans-serif`)
-    // this.textarea.style.fontSize = this.charSize / TO_RETINA_SCALE + 'px'
   }
 
   fullscreen() {
@@ -174,7 +167,6 @@ class AsciiPainter extends Canvas {
   }
 
   clear() {
-    // this.plainTexts = ''
     this.ctx.clearRect(0, 0, this.width, this.height)
   }
 
@@ -183,7 +175,6 @@ class AsciiPainter extends Canvas {
 
     let pixelIndex, pixelGray, charObj
     const offsetX = (this.width - (this.charSize * this.sourceObj.width)) / 2
-    // const plainTexts = []
 
     for (let y = 0; y < this.sourceObj.height; y++) {
       for (let x = 0; x < this.sourceObj.width; x++) {
@@ -192,22 +183,13 @@ class AsciiPainter extends Canvas {
         charObj = this.charParser.chars[pixelGray - (this.isTransparent ? 1 : 0)]
 
         if (!charObj) {
-          // plainTexts.push(' ')
           continue
         }
 
         this.ctx.fillText(charObj.char, x * this.charSize + offsetX, y * this.charSize)
-        // plainTexts.push(charObj.char)
       }
-      // plainTexts.push('\n')
     }
-    // this.plainTexts = plainTexts.join('')
-    // this.exportTexts()
   }
-
-  // exportTexts() {
-  //   this.textarea.innerText = this.plainTexts
-  // }
 
   getMappedGrayData() {
     const grayData = this.sourceObj.grayData

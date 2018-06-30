@@ -76,7 +76,10 @@ const commonConfig = merge([
         template: './index.pug'
       }),
       new FriendlyErrorsPlugin(),
-      new StylelintPlugin(lintStylesOptions)
+      new StylelintPlugin(lintStylesOptions),
+      new webpack.ProvidePlugin({
+        PIXI: 'pixi.js'
+      })
     ],
     module: {
       noParse: /\.min\.js/

@@ -43,7 +43,7 @@ class Control {
         rangesliderJs.create(el)
       }
 
-      el.dispatchEvent(new Event('change'))
+      el.dispatchEvent(new Event('input'))
     })
   }
 

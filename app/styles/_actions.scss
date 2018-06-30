@@ -13,9 +13,10 @@
 
   @include tablet {
     flex-grow: 1;
+    margin-left: 50px;
   }
 
-  @include desktop{
+  @include desktop {
     display: block;
     position: absolute;
     left: $margin-h;
@@ -44,7 +45,7 @@
 
     @include tablet {
       height: 40%;
-      margin: auto 20px auto 0 !important;
+      margin: auto 15px auto 5px !important;
     }
 
     @include desktop {

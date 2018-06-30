@@ -13,7 +13,6 @@ html(lang='en')
       }
   body
     #fileDropArea.hide-mobile
-    pre#textarea(contenteditable='true' autocomplete='off' autocorrect='off' autocapitalize='off' spellcheck='false')
     .aside
       .controls
         .controls_row
@@ -28,13 +27,11 @@ html(lang='en')
             input.input.input--range#resolution(type='range' min='20' max='100' step='5' value='80')
 
       ul.actions
-        li.hide-mobile
+        li
           input#webcam(type='checkbox')
           label.label.label--webcam(for='webcam') webcam
         li
-          label.label.label--file(for='file')
-            span.hide-mobile upload
-            span.show-mobile camera
+          label.label.label--file(for='file') upload
           input#file(type='file')
         li.actions_divider
         li

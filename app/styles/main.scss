@@ -31,11 +31,11 @@ $margin-v-s: 20px;
 //   outline: 0;
 // }
 
-#ascii {
+#painter {
   display: block;
   position: absolute;
   transition: opacity 0;
-  opacity: 0;
+  // opacity: 0;
   left: 50%;
   transform: translate(-50%, -50%);
   top: calc(50% + #{($side-h - $footer-h) / 2});

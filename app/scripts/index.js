@@ -3,4 +3,4 @@ if (process.env.NODE_ENV !== 'production') {
   require('./../index.pug')
 }
 
-import './ascii'
+import './charmap'

@@ -6,7 +6,8 @@ a {
   color: #000;
 }
 
-ul, li {
+ul,
+li {
   margin: 0;
   bottom: 0;
 }
@@ -16,7 +17,6 @@ body {
   font-weight: bold;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   display: block;
-  transition: background 0.3s;
 
   .is-mobile & {
     background: #eee;
@@ -32,7 +32,7 @@ body {
       transform: translate(-50%, -50%);
       pointer-events: none;
       font-size: 100px;
-      font-style: italic;
+      // font-style: italic;
     }
   }
 }
