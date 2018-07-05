@@ -65,8 +65,18 @@ new class {
   }
 
   reload() {
+    if (this.painter.sourceObj.isWebcam) return
+
     this.setting = getSetting()
-    this.controls.applySettings(this.setting)
-    this.imageParser.loadSample(this.setting.image)
+    document.body.classList.add('is-loading')
+
+    setTimeout(() => {
+      this.controls.applySettings(this.setting)
+      this.imageParser.loadSample(this.setting.image)
+    }, 300)
+
+    setTimeout(() => {
+      document.body.classList.remove('is-loading')
+    }, 1000)
   }
 }

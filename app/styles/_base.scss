@@ -18,6 +18,10 @@ body {
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   display: block;
 
+  &.is-loading {
+    transition: background-color 0.3s;
+  }
+
   .is-mobile & {
     background: #eee;
   }

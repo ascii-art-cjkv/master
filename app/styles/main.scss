@@ -34,11 +34,14 @@ $margin-v-s: 20px;
 #painter {
   display: block;
   position: absolute;
-  transition: opacity 0;
-  // opacity: 0;
+  transition: opacity 0.3s;
   left: 50%;
   transform: translate(-50%, -50%);
   top: calc(50% + #{($side-h - $footer-h) / 2});
+
+  .is-loading & {
+    opacity: 0;
+  }
 
   @include tablet {
     top: calc(50% + #{$side-h / 2});

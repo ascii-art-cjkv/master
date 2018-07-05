@@ -161,7 +161,6 @@ class Painter extends Canvas {
       text.updateText()
       text.bounds = text.getBounds()
     })
-
   }
 
   draw() {
