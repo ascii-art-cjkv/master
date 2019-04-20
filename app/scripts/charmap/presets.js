@@ -1,4 +1,5 @@
 
+import { isMobile } from 'xx'
 
 // make presets
 const makePreset = (text, resolution, color, bgColor, image, webcam = false) => ({ text, resolution, color, bgColor, image, webcam })
@@ -16,6 +17,10 @@ let sampleIndex = -1
 export default function getSetting() {
   sampleIndex++
   if (sampleIndex > presets.length - 1) sampleIndex = 0
+
+  if (isMobile()) {
+    presets[sampleIndex].resolution = 35
+  }
 
   return presets[sampleIndex]
 }

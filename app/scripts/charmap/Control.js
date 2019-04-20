@@ -37,7 +37,7 @@ class Control {
       if (domId === 'resolution') {
         el.setAttribute(attr, value)
 
-        if (isMobile) {
+        if (isMobile()) {
           el.setAttribute('max', 50)
         }
         const rangeslider = el['rangeslider-js']
