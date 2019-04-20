@@ -149,7 +149,7 @@ class Painter extends Canvas {
       text = this.pool.text[charObj.char]
       if (!text) {
         text = new PIXI.Text(charObj.char, {
-          fontFamily: "'Hiragino Sans GB', sans-serif",
+          fontFamily: "'ヒラギノ角ゴ Pro W3', 'Hiragino Kaku Gothic Pro', 'Osaka', 'メイリオ', 'Meiryo', 'ＭＳ Ｐゴシック', 'MS PGothic', sans-serif",
           fontSize: this.charSize * window.devicePixelRatio,
           fill: this.color
         })
