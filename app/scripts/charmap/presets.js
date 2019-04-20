@@ -1,15 +1,17 @@
+
+
 // make presets
 const makePreset = (text, resolution, color, bgColor, image, webcam = false) => ({ text, resolution, color, bgColor, image, webcam })
+const randomRange = () => 20 + Math.floor(Math.random() * 80)
+
+const howManyDays = parseInt((new Date().getTime() - new Date('March, 19, 2017').getTime()) / (24 * 60 * 60 * 1000)) + 1
 
 const presets = [
-  makePreset('黑白灰', 20, '#000000', '#ffffff', 'gradient.jpg'),
-  makePreset('笑臉贏人', 80, '#ffffff', '#000000', 'ba90.png'),
-  makePreset('飛快的棕色狐狸跳過了懶狗', 30, '#673808', '#e7ff98', 'qbf.jpg'), // from https://dribbble.com/shots/330090-The-quick-brown-fox-
-  makePreset('E = instein', 100, '#000000', '#ffffff', 'albert-einstein.jpg'),
-  makePreset('政府畏懼人民自由', 50, '#000000', '#ffffff', 'v.jpg'),
+  makePreset(`尋找李明哲第${howManyDays}天`, randomRange(), '#000000', '#ffffff', 'lee_ming-cheh.jpg'),
+  makePreset('一九八九六四，王維林', 50, '#000000', '#ffffff', '64.jpg'),
 ]
 
-let sampleIndex = Math.floor(Math.random() * presets.length)
+let sampleIndex = -1
 
 export default function getSetting() {
   sampleIndex++
