@@ -7,7 +7,7 @@
   "license": "MIT",
   "scripts": {
     "build": "webpack --env production",
-    "start": "nodemon --watch webpack.config.js --exec \"webpack-dev-server --open --hot --env development\""
+    "start": "nodemon --watch webpack.config.js --exec \"webpack-dev-server --open --hot --env development\" --host 0.0.0.0"
   },
   "repository": {
     "type": "git",
