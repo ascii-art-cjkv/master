@@ -45,6 +45,8 @@
     &--text {
       display: block;
       text-align: left;
+      border: 1px solid;
+      padding: 2px 5px;
 
       @include mobile {
         width: 100%;
