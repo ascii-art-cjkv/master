@@ -9,7 +9,7 @@ const howManyDays = parseInt((new Date().getTime() - new Date('March, 19, 2017')
 
 const presets = [
   makePreset(`尋找李明哲第${howManyDays}天`, randomRange(), '#000000', '#ffffff', 'lee_ming-cheh.jpg'),
-  makePreset('一九八九六四，王維林', 50, '#000000', '#ffffff', '64.jpg'),
+  makePreset('六四，王維林', 50, '#000000', '#ffffff', '64.jpg'),
 ]
 
 let sampleIndex = -1
