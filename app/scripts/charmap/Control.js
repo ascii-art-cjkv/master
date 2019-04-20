@@ -1,4 +1,4 @@
-import { xx } from 'xx'
+import { xx, isMobile } from 'xx'
 import rangesliderJs from 'rangeslider-js'
 
 const defaultJsColorOptions = {
@@ -36,6 +36,10 @@ class Control {
 
       if (domId === 'resolution') {
         el.setAttribute(attr, value)
+
+        if (isMobile) {
+          el.setAttribute('max', 50)
+        }
         const rangeslider = el['rangeslider-js']
 
         // workaround to fix unchanged rangeslide position

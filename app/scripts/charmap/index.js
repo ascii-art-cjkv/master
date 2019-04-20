@@ -4,7 +4,7 @@ import CharParser from './CharParser'
 import ImageParser from './ImageParser'
 import WebcamParser from './WebcamParser'
 import FileHandler from './FileHandler'
-import Control from '../ascii/Control'
+import Control from './Control'
 
 import getSetting from './presets'
 import { xx, isMobile } from 'xx'
