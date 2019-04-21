@@ -25,13 +25,22 @@ body {
   .is-mobile & {
     background: #eee;
   }
-
 }
 
 #fileDropArea {
+  position: absolute;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
   transition: opacity 0.3s;
   background: rgba(#fff, 0.7);
   opacity: 0;
+
+  &:hover {
+    opacity: 1;
+  }
 
   &::after {
     content: 'Drag image here';
@@ -44,16 +53,10 @@ body {
     pointer-events: none;
     font-size: 30px;
     display: block;
-  }
 
-  &:hover {
-    opacity: 1;
-  }
-
-  .drag-file & {
-    &::after {
+    .drag-file & {
       content: 'Drop';
-      font-size: 80px;
+      font-size: 70px;
     }
   }
 }
@@ -70,13 +73,4 @@ body {
   .is-mobile & {
     display: none;
   }
-}
-
-#fileDropArea {
-  position: absolute;
-  z-index: 1;
-  left: 0;
-  top: 0;
-  right: 0;
-  bottom: 0;
 }
