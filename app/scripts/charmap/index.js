@@ -52,6 +52,7 @@ new class {
 
     this.controls.on('text', 'input', (e) => this.charParser.parse(e.target.value))
         // .on('download', 'click', (e) => e.target.href = this.painter.toObjectURL())
+        .on('refresh', 'click', this.reload.bind(this))
         .on('resolution', 'input', (e) => this.painter.setResolution(e.target.value))
         .on('webcam', 'change', (e) => this.painter.setSource(e.target.checked ? this.webcamParser : this.imageParser))
 
