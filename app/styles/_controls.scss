@@ -14,8 +14,9 @@
     &--text {
       input {
         font-size: 15px;
-        font-weight: bold;
         font-family: inherit;
+        font-weight: bold;
+        margin-bottom: 0.5em;
       }
     }
 
@@ -45,8 +46,10 @@
     &--text {
       display: block;
       text-align: left;
-      border: 1px solid;
+      border: 2px solid;
       padding: 2px 5px;
+      max-width: 100%;
+      background: #9cf17a;
 
       @include mobile {
         width: 100%;

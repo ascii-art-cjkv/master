@@ -23,13 +23,20 @@
     width: $side-w;
     height: auto;
   }
+
+  h1 {
+    font-size: 1em;
+    position: absolute;
+    margin-top: -3.5em;
+  }
 }
 
 .copyright {
-  font-size: 0.6em;
+  font-size: 0.7em;
   font-weight: normal;
   text-decoration: none;
   margin: auto 0;
+  border-bottom: 1px solid;
 
   @include mobile {
     position: fixed;

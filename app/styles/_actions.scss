@@ -13,13 +13,14 @@
 
   @include tablet {
     flex-grow: 1;
+    padding: 0 20px;
   }
 
   @include desktop {
     display: block;
-    position: absolute;
-    left: $margin-h;
-    top: 30%;
+    position: relative;
+    margin-top: 50px;
+    padding: 0;
   }
 
   li {
@@ -27,7 +28,13 @@
     margin: auto 0;
     margin-right: 10px;
 
+    @include tablet {
+      margin: 5px 0;
+      margin-right: 20px;
+    }
+
     @include desktop {
+      margin: 0;
       margin-left: 0;
       margin-bottom: 10px;
     }
