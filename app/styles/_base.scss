@@ -28,35 +28,43 @@ body {
 }
 
 #fileDropArea {
+  $margin: 15px;
+
   position: absolute;
   z-index: 1;
-  left: 0;
-  top: 0;
-  right: 0;
-  bottom: 0;
+  left: $margin;
+  top: $margin;
+  right: $margin;
+  bottom: $margin;
   transition: opacity 0.3s;
-  background: rgba(#fff, 0.7);
   opacity: 0;
+  border: 1px solid;
+  border-color: rgba(#000, 0.1);
+  display: none;
+
+  @include tablet {
+    display: block;
+    top: $side-h + $margin;
+  }
+
+  @include desktop {
+    left: $side-w + $margin;
+    top: $margin;
+  }
 
   &:hover {
     opacity: 1;
   }
 
   &::after {
-    content: 'Drag image here';
-    position: absolute;
-    left: $side-w;
-    right: 0;
-    text-align: center;
-    top: 50%;
-    transform: translate(0, -50%);
-    pointer-events: none;
-    font-size: 30px;
+    content: 'drag image here';
+    padding: 10px;
     display: block;
+    font-size: 0.8em;
+    pointer-events: none;
 
     .drag-file & {
-      content: 'Drop';
-      font-size: 70px;
+      content: 'drop';
     }
   }
 }
