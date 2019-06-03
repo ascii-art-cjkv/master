@@ -45,15 +45,14 @@
 
     &--text {
       // $bg: #9cf17a
-      $bg: #c00;
+      $color: #c00;
 
       display: block;
       text-align: left;
-      border: 2px solid $bg;
+      border: 2px solid #000;
       padding: 2px 5px;
       max-width: 100%;
-      background: $bg;
-      color: #fff;
+      color: $color;
 
       @include mobile {
         width: 100%;
