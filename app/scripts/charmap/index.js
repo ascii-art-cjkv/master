@@ -23,6 +23,12 @@ new class {
     this.charParser = new CharParser()
     this.imageParser = new ImageParser()
     this.webcamParser = new WebcamParser()
+
+    if (!this.webcamParser.hasWebcam) {
+      const webcamInput = document.getElementById('webcamInputContainer')
+      webcamInput.parentNode.removeChild(webcamInput);
+    }
+
     this.painter = new Painter()
     this.controls = new Control(this.setting, this.painter)
     this.fileHandler = new FileHandler(this.painter)
@@ -45,7 +51,9 @@ new class {
     this.imageParser.on('grayDataUpdated', this.painter.onSourceGrayDataUpdated.bind(this.painter))
     this.webcamParser.on('grayDataUpdated', this.painter.onSourceGrayDataUpdated.bind(this.painter))
     this.fileHandler.on('fileLoaded', (datajpg) => {
-      this.controls.webcam.checked = false
+      if (this.webcamParser.hasWebcam) {
+        this.controls.webcam.checked = false
+      }
       this.painter.setSource(this.imageParser)
       this.painter.loadImage(datajpg)
     })
@@ -54,7 +62,10 @@ new class {
         // .on('download', 'click', (e) => e.target.href = this.painter.toObjectURL())
         .on('refresh', 'click', this.reload.bind(this))
         .on('resolution', 'input', (e) => this.painter.setResolution(e.target.value))
-        .on('webcam', 'change', (e) => this.painter.setSource(e.target.checked ? this.webcamParser : this.imageParser))
+
+    if (this.webcamParser.hasWebcam) {
+      this.controls.on('webcam', 'change', (e) => this.painter.setSource(e.target.checked ? this.webcamParser : this.imageParser))
+    }
 
     if (this.isDesktop) {
       document.body.addEventListener('keydown', (e) => {

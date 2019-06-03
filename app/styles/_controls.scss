@@ -44,12 +44,16 @@
     }
 
     &--text {
+      // $bg: #9cf17a
+      $bg: #c00;
+
       display: block;
       text-align: left;
-      border: 2px solid;
+      border: 2px solid $bg;
       padding: 2px 5px;
       max-width: 100%;
-      background: #9cf17a;
+      background: $bg;
+      color: #fff;
 
       @include mobile {
         width: 100%;

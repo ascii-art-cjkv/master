@@ -11,11 +11,12 @@ const defaultJsColorOptions = {
 }
 
 class Control {
-  constructor(settings, painter) {
+  constructor(settings, painter, hasWebcam) {
     this.painter = painter
     this.addColor('color', (jsColor) => painter.setColor(`#${jsColor}`))
     this.addColor('bgColor', (jsColor) => painter.setBgColor(`#${jsColor}`))
     this.applySettings(settings)
+    this.hasWebcam = hasWebcam
   }
 
   applySettings(settings) {

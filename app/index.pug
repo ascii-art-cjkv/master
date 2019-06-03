@@ -15,17 +15,17 @@ html(lang='en')
     meta(http-equiv='X-UA-Compatible' content='ie=edge')
 
     //- for SNS
-    <meta property="og:title" content="the Censored Words">
+    <meta property="og:title" content="THE CENSORED WORDS">
     <meta property="og:description" content="%3fd^#ADGGU*&^%^&*)f">
     <meta property="og:image" content="https://the-censored-words.github.io/og_image.jpg">
     <meta property="og:url" content="https://the-censored-words.github.io">
-    <meta property="og:site_name" content="the Censored Words">
+    <meta property="og:site_name" content="THE CENSORED WORDS">
     <meta property="og:type" content="website">
     <meta name="twitter:card" content="summary_large_image">
 
     script(src='https://cdnjs.cloudflare.com/ajax/libs/jscolor/2.0.4/jscolor.js')
     script(src='https://cdnjs.cloudflare.com/ajax/libs/blueimp-load-image/2.19.0/load-image.all.min.js')
-    title the Censored Words
+    title THE CENSORED WORDS
     style.
       body {
         display: none;
@@ -33,7 +33,7 @@ html(lang='en')
   body
     #fileDropArea.hide-mobile
     .aside
-      h1 the Censored Words
+      h1 THE CENSORED WORDS
       .controls
         .controls_row
           .controls_item.controls_item--text
@@ -47,16 +47,15 @@ html(lang='en')
             input.input.input--range#resolution(type='range' min='20' max='100' step='5' value='80')
 
       ul.actions
-        li
-          a#refresh(href='#') refresh
-        li
+        li.hiddenFeature
+          a#refresh(href='#') next
+        li#webcamInputContainer
           input#webcam(type='checkbox')
           label.label.label--webcam(for='webcam') webcam
-        li
+        li.hiddenFeature
           label.label.label--file(for='file') upload
           input#file(type='file')
-        //- li.actions_divider
-        //- li
+        //- li.hiddenFeature
         //-   a#download(href='#' download='hihi.png') download
 
       a.copyright(href='//fb.me/bonanananana' target='_blank') ©19

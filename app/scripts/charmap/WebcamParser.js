@@ -7,7 +7,12 @@ class WebcamParser extends PixelParser {
       clearBeforeRender: false,
     })
 
-    if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) return false // no camera
+    this.hasWebcam = true
+
+    if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+      this.hasWebcam = false
+      return
+    }
 
     this.video = document.createElement('video')
 

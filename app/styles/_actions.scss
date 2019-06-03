@@ -2,6 +2,10 @@
   padding: 0;
   display: flex;
 
+  .hiddenFeature {
+    display: none;
+  }
+
   @include mobile {
     position: fixed;
     left: 0;
