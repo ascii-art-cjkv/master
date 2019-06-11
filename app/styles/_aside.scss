@@ -42,11 +42,14 @@
 }
 
 .copyright {
-  font-size: 0.7em;
+  font-size: 0.8em;
   font-weight: normal;
-  text-decoration: none;
   margin: auto 0;
-  // border-bottom: 1px solid;
+
+  a {
+    text-decoration: none;
+    margin-right: 10px;
+  }
 
   @include mobile {
     position: fixed;
