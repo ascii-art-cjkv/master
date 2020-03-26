@@ -13,14 +13,16 @@ let presets = null
 
 if (isJp) {
   presets = [
-    makePreset('反送中', 80, '#000000', '#ffffff', 'no_china_extradition.jpg'),
+    makePreset('武漢肺炎 Wuhan Pneumonia', 80, '#101010', '#fff3f2', 'never_trust_chinese_government.jpg'),
+    makePreset('香港、がんばろう。', 80, '#000000', '#ee0000', 'no_china_extradition.jpg'),
     makePreset('八九六四', 80, '#000000', '#ffffff', '64.jpg'),
     makePreset('ノーベル平和賞受賞者', 60, '#000000', '#ffffff', 'liu_xiaobo.png'),
     makePreset('台湾独立', 30, '#000000', '#ffffff', 'taiwan.jpg'),
   ]
 } else {
   presets = [
-    makePreset('支持香港！', 80, '#000000', '#ffffff', 'no_china_extradition.jpg'),
+    makePreset('武漢肺炎 Wuhan Pneumonia', 80, '#101010', '#fff3f2', 'never_trust_chinese_government.jpg'),
+    makePreset('支持香港！', 80, '#000000', '#ee0000', 'no_china_extradition.jpg'),
     makePreset('八九六四', 80, '#000000', '#ffffff', '64.jpg'),
     makePreset(`尋找李明哲，第${howManyDays}天。`, randomRange(), '#000000', '#ffffff', 'lee_ming_cheh.jpg'),
     makePreset('諾貝爾和平獎得主', 100, '#000000', '#ffffff', 'liu_xiaobo.png'),
